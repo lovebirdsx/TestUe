@@ -1,0 +1,41 @@
+{
+  "files.associations": {
+    "*.uasset": "json",
+    "*.umap": "json"
+  },
+  "search.exclude": {
+    "**/Binaries": true,
+    "**/DerivedDataCache": true,
+    "**/Intermediate": true,
+    "**/Saved": true,
+    "**/node_modules": true
+  },
+  "editor.formatOnSave": true,
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.wordWrap": "on",
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "Binaries": true,
+    "DerivedDataCache": true,
+    "Intermediate": true,
+    "Saved": true,
+    "**/node_modules": true
+  },
+  "files.watcherExclude": {
+    "**/Binaries/**": true,
+    "**/DerivedDataCache/**": true,
+    "**/Intermediate/**": true,
+    "**/Saved/**": true
+  }
+}
