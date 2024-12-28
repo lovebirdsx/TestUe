@@ -1,20 +1,13 @@
-import * as gulp from 'gulp';
-import * as path from 'path';
+import './packages/testUe';
 
-import { log } from 'gulp-util';
+import { getConfig } from './config';
+import { setExecVerbose } from './common/exec';
 
-import { cleanDir } from './common/util';
+function init() {
+    const config = getConfig();
+    if (config.verbose) {
+        setExecVerbose(true);
+    }
+}
 
-const workingDir = path.resolve(__dirname, '../..');
-
-gulp.task('clean', (cb: () => void): void => {
-    log(`Cleaning pwd: ${workingDir}`);
-    cleanDir(path.join(workingDir, 'node_modules'));
-    cleanDir(path.join(workingDir, 'tools', 'node_modules'));
-    cleanDir(path.join(workingDir, 'Binaries'));
-    cleanDir(path.join(workingDir, 'Intermediate'));
-    cleanDir(path.join(workingDir, 'Saved'));
-    cleanDir(path.join(workingDir, 'DerivedDataCache'));
-
-    cb();
-});
+init();

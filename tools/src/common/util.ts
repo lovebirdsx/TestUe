@@ -65,6 +65,10 @@ export function red(str: string): string {
     return `\x1b[31m${str}\x1b[0m`;
 }
 
+export function isRed(str: string): boolean {
+    return str.startsWith('\x1b[31m');
+}
+
 /**
  * 转换为蓝色的字符串，用于日志输出
  */

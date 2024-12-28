@@ -7,6 +7,7 @@ exports.writeJsonFile = writeJsonFile;
 exports.green = green;
 exports.yellow = yellow;
 exports.red = red;
+exports.isRed = isRed;
 exports.blue = blue;
 const fs = require("fs");
 const path = require("path");
@@ -42,6 +43,9 @@ function yellow(str) {
 }
 function red(str) {
     return `\x1b[31m${str}\x1b[0m`;
+}
+function isRed(str) {
+    return str.startsWith('\x1b[31m');
 }
 function blue(str) {
     return `\x1b[34m${str}\x1b[0m`;
