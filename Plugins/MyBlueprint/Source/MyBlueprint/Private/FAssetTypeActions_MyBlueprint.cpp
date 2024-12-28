@@ -1,6 +1,8 @@
 ﻿#include "FAssetTypeActions_MyBlueprint.h"
 #include "MyBlueprint.h"
 #include "MyBlueprintEditor.h"
+#include "MyBlueprintFactory.h"
+#include "MyBpParent.h"
 
 UClass* FAssetTypeActions_MyBlueprint::GetSupportedClass() const
 {
@@ -41,4 +43,11 @@ void FAssetTypeActions_MyBlueprint::OpenAssetEditor(const TArray<UObject*>& InOb
 	{
 		OpenAssetEditor(InObjects, EditWithinLevelEditor);
 	}
+}
+
+UFactory* FAssetTypeActions_MyBlueprint::GetFactoryForBlueprintType(UBlueprint* InBlueprint) const
+{
+	UMyBlueprintFactory *MyFactory = NewObject<UMyBlueprintFactory>();
+	MyFactory->ParentClass = UMyBpParent::StaticClass();
+	return MyFactory;
 }

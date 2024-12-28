@@ -9,8 +9,3 @@ UMyBlueprint::UMyBlueprint()
 {
 	Print("UMyBlueprint::UMyBlueprint()");
 }
-
-UMyBlueprint::~UMyBlueprint()
-{
-	Print("UMyBlueprint::~UMyBlueprint()");
-}

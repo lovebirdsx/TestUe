@@ -10,6 +10,5 @@ class MYBLUEPRINT_API UMyBlueprint : public UBlueprint
 	GENERATED_BODY()
 
 public:
-	UMyBlueprint();
-	~UMyBlueprint();
+	UMyBlueprint();	
 };
