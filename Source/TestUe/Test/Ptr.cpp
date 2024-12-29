@@ -32,38 +32,63 @@ bool TestPtr_SharedRef::RunTest(const FString& Parameters)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestPtr_SharedPtr, "TestUe.Ptr.SharedPtr", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
 
+int GFTestFreeCount = 0;
+
 bool TestPtr_SharedPtr::RunTest(const FString& Parameters)
 {
+	
 	struct FTest
     {
         int32 Value = 123;
+
+		~FTest() { GFTestFreeCount++; }
     };
 
-    // 访问 SharedPtr 的对象
-    TSharedPtr<FTest> Test1 = MakeShared<FTest>();
-    TestEqual(TEXT("Test Value must be 123"), Test1->Value, 123);
-	Test1->Value = 456;
-    TestEqual(TEXT("Test Value must be 456"), Test1->Value, 456);
+    // 访问
+	{
+	    const TSharedPtr<FTest> Test1 = MakeShared<FTest>();
+	    TestEqual(TEXT("Test Value must be 123"), Test1->Value, 123);
+		Test1->Value = 456;
+	    TestEqual(TEXT("Test Value must be 456"), Test1->Value, 456);
+	}
 
-    // 测试 SharedPtr 的引用计数
-	TestTrue(TEXT("Test1 is valid"), Test1.IsValid());
-	TestTrue(TEXT("Test1 is unique"), Test1.IsUnique());
-	TestEqual(TEXT("GetSharedReferenceCount should be 1"), Test1.GetSharedReferenceCount(), 1);
-	
-    {
-        const TSharedPtr<FTest> Test2 = Test1;
-        TestEqual(TEXT("Test2 Value must be 456"), Test2->Value, 456);
-        TestTrue(TEXT("Test1 is valid"), Test1.IsValid());
-		TestFalse(TEXT("Test1 is not unique"), Test1.IsUnique());		
-        TestEqual(TEXT("GetSharedReferenceCount should be 2"), Test1.GetSharedReferenceCount(), 2);
-    }
+    // 引用计数
+	{
+		const TSharedPtr<FTest> Test1 = MakeShared<FTest>();
+		TestTrue(TEXT("Test1 is valid"), Test1.IsValid());
+		TestTrue(TEXT("Test1 is unique"), Test1.IsUnique());
+		TestEqual(TEXT("GetSharedReferenceCount should be 1"), Test1.GetSharedReferenceCount(), 1);
+		
+	    {
+	        const TSharedPtr<FTest> Test2 = Test1;
+	        TestEqual(TEXT("Test2 Value must be 456"), Test2->Value, 123);
+	        TestTrue(TEXT("Test1 is valid"), Test1.IsValid());
+			TestFalse(TEXT("Test1 is not unique"), Test1.IsUnique());		
+	        TestEqual(TEXT("GetSharedReferenceCount should be 2"), Test1.GetSharedReferenceCount(), 2);
+	    }
 
-    TestTrue(TEXT("Test1 is valid"), Test1.IsValid());
-	TestTrue(TEXT("Test1 is unique"), Test1.IsUnique());
+	    TestTrue(TEXT("Test1 is valid"), Test1.IsValid());
+		TestTrue(TEXT("Test1 is unique"), Test1.IsUnique());
+	}
 
-	// 测试Reset和IsValid
-	Test1.Reset();
-	TestFalse(TEXT("Test1 is not valid"), Test1.IsValid());    
+	// Reset
+	{
+		TSharedPtr<FTest> Test1 = MakeShared<FTest>();
+		Test1.Reset();
+		TestFalse(TEXT("Test1 is not valid"), Test1.IsValid());    
+	}
+
+	// 从原生指针创建
+	{
+		{
+			GFTestFreeCount = 0;
+			FTest* Test = new FTest();
+			Test->Value = 456;
+			const TSharedPtr<FTest> Test1(Test);
+			TestEqual(TEXT("Test1 Value must be 456"), Test1->Value, 456);
+		}
+		TestEqual(TEXT("GFTestFreeCount should be 1"), GFTestFreeCount, 1);
+	}	
 	
 	return true;
 }

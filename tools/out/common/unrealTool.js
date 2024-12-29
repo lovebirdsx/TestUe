@@ -36,6 +36,7 @@ function getToolPath(tool) {
 }
 const unrealErrors = [
     "LogAutomationController: Error:",
+    "error LNK",
 ];
 function formatUnrealOutput(data, isError) {
     if (unrealErrors.some((error) => data.includes(error))) {
