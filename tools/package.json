@@ -5,6 +5,8 @@
   "main": "out/julpfile.js",
   "scripts": {
     "build": "gulp build",
+    "test": "gulp test",
+    "test:watch": "gulp test:watch",
     "clean": "gulp clean",
     "tool:test": "jest",
     "tool:build": "tsc",
