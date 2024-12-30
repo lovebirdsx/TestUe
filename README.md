@@ -13,5 +13,10 @@
 
 ## 工具
 
+cd到tools目录，加入`--verbose`参数可以查看详细的日志
+
 * 清理项目 `yarn clean`
-* 编译工具 `yarn build-tools`
+* 编译工具 `yarn tools:build`
+* 编译项目 `yarn build`
+* 测试 `yarn test`
+* 以监控模式跑测试 `yarn test:watch`
