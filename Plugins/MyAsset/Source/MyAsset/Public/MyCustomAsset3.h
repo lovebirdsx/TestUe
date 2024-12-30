@@ -2,10 +2,10 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Object.h"
-#include "MyCustomAsset2.generated.h"
+#include "MyCustomAsset3.generated.h"
 
 UCLASS(BlueprintType)
-class MYASSET_API UMyCustomAsset2 : public UObject
+class MYASSET_API UMyCustomAsset3 : public UObject
 {
 	GENERATED_BODY()
 

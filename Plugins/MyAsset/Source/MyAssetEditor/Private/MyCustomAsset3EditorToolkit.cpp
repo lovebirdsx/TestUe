@@ -1,17 +1,17 @@
-﻿#include "MyCustomAsset2EditorToolkit.h"
-#include "MyCustomAsset2.h"
-#include "SMyCustomAsset2EditorWindow.h"
+﻿#include "MyCustomAsset3EditorToolkit.h"
+#include "MyCustomAsset3.h"
+#include "SMyCustomAsset3EditorWindow.h"
 
-#define LAYOUT "MyCustomAsset2EditorLayout"
-#define EDITOR_TAB "MyCustomAsset2EditorTab"
-#define DETAILS_TAB "MyCustomAsset2DetailsTab"
+#define LAYOUT "MyCustomAsset3EditorLayout"
+#define EDITOR_TAB "MyCustomAsset3EditorTab"
+#define DETAILS_TAB "MyCustomAsset3DetailsTab"
 
-void FMyCustomAsset2EditorToolkit::InitEditor(const FAssetOpenArgs& OpenArgs)
+void FMyCustomAsset3EditorToolkit::InitEditor(const FAssetOpenArgs& OpenArgs)
 {
-	const TArray<UMyCustomAsset2*>& InObjects = OpenArgs.LoadObjects<UMyCustomAsset2>();
+	const TArray<UMyCustomAsset3*>& InObjects = OpenArgs.LoadObjects<UMyCustomAsset3>();
 	if (InObjects.Num() <= 0)
 	{
-		UE_LOG(LogTemp, Error, TEXT("No asset(type is UMyCustomAsset2) to edit"));
+		UE_LOG(LogTemp, Error, TEXT("No asset(type is UMyCustomAsset3) to edit"));
 		return;
 	}
 	
@@ -51,7 +51,7 @@ void FMyCustomAsset2EditorToolkit::InitEditor(const FAssetOpenArgs& OpenArgs)
 	InitAssetEditor(EToolkitMode::Standalone, OpenArgs.ToolkitHost, FName("MyCustomAsset2Editor"), Layout, true, true, InObjectsArray);
 }
 
-void FMyCustomAsset2EditorToolkit::RegisterTabSpawners(const TSharedRef<FTabManager>& InTabManager)
+void FMyCustomAsset3EditorToolkit::RegisterTabSpawners(const TSharedRef<FTabManager>& InTabManager)
 {
 	FAssetEditorToolkit::RegisterTabSpawners(InTabManager);
 
@@ -61,7 +61,7 @@ void FMyCustomAsset2EditorToolkit::RegisterTabSpawners(const TSharedRef<FTabMana
 	{
 		return SNew(SDockTab)
 		[
-			SNew(SMyCustomAsset2EditorWindow, this->Asset)
+			SNew(SMyCustomAsset3EditorWindow, this->Asset)
 		];
 	}))
 	.SetDisplayName(INVTEXT("Editor"))
@@ -83,7 +83,7 @@ void FMyCustomAsset2EditorToolkit::RegisterTabSpawners(const TSharedRef<FTabMana
 	.SetGroup(WorkspaceMenuCategory.ToSharedRef());
 }
 
-void FMyCustomAsset2EditorToolkit::UnregisterTabSpawners(const TSharedRef<FTabManager>& InTabManager)
+void FMyCustomAsset3EditorToolkit::UnregisterTabSpawners(const TSharedRef<FTabManager>& InTabManager)
 {
 	FAssetEditorToolkit::UnregisterTabSpawners(InTabManager);
 	InTabManager->UnregisterTabSpawner(EDITOR_TAB);

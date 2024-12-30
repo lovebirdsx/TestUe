@@ -2,17 +2,17 @@
 
 #include "Widgets/SCompoundWidget.h"
 
-class UMyCustomAsset2;
+class UMyCustomAsset3;
 
-class SMyCustomAsset2EditorWindow : public SCompoundWidget
+class SMyCustomAsset3EditorWindow : public SCompoundWidget
 {
 public:
-	SLATE_BEGIN_ARGS(SMyCustomAsset2EditorWindow) {}
-	SLATE_ARGUMENT(UMyCustomAsset2*, Asset)
+	SLATE_BEGIN_ARGS(SMyCustomAsset3EditorWindow) {}
+	SLATE_ARGUMENT(UMyCustomAsset3*, Asset)
 SLATE_END_ARGS()
 
-	void Construct(const FArguments& InArgs, UMyCustomAsset2* InAsset);
-	virtual ~SMyCustomAsset2EditorWindow() override;
+	void Construct(const FArguments& InArgs, UMyCustomAsset3* InAsset);
+	virtual ~SMyCustomAsset3EditorWindow() override;
 
 	TSharedRef<SDockTab> OnSpawnTab(const FSpawnTabArgs& SpawnTabArgs);
 
@@ -22,7 +22,7 @@ private:
 	void OnAssetValueCommitted(int Value, ETextCommit::Type CommitType);
 	bool OnAssetNameChanged(const FText& Text, FText& Text1);	
 	
-	UMyCustomAsset2* Asset = nullptr;
+	UMyCustomAsset3* Asset = nullptr;
 
 	// 编辑器控件
 	TSharedPtr<SEditableTextBox> AssetNameBox;

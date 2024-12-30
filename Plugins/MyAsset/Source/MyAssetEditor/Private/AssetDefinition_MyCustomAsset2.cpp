@@ -7,12 +7,12 @@
 
 FText UAssetDefinition_MyCustomAsset2::GetAssetDisplayName() const
 {
-	return NSLOCTEXT("AssetTypeActions", "AssetTypeActions_MyCustomAsset", "My Custom Asset");
+	return NSLOCTEXT("AssetTypeActions", "AssetTypeActions_MyCustomAsset2", "My Custom Asset 2");
 }
 
 FText UAssetDefinition_MyCustomAsset2::GetAssetDescription(const FAssetData& AssetData) const
 {
-	return NSLOCTEXT("AssetTypeActions", "AssetTypeActions_MyCustomAsset_Desc", "My Custom Asset Description");
+	return NSLOCTEXT("AssetTypeActions", "AssetTypeActions_MyCustomAsset_Desc 2", "My Custom Asset Description 2");
 }
 
 FLinearColor UAssetDefinition_MyCustomAsset2::GetAssetColor() const
