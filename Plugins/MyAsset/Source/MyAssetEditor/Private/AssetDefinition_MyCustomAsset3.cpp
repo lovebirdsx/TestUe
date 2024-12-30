@@ -2,6 +2,7 @@
 
 #include "MyCustomAsset3.h"
 #include "MyCustomAsset3EditorToolkit.h"
+#include "Styling/SlateIconFinder.h"
 
 #define LOCTEXT_NAMESPACE "MyCustomAssetEditor"
 

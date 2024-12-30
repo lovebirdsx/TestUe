@@ -2,9 +2,9 @@
 #include "MyCustomAsset2.h"
 #include "SMyCustomAsset2EditorWindow.h"
 
-#define LAYOUT "MyCustomAsset2EditorLayout"
-#define EDITOR_TAB "MyCustomAsset2EditorTab"
-#define DETAILS_TAB "MyCustomAsset2DetailsTab"
+#define MY_CUSTOM_ASSET2_LAYOUT "MyCustomAsset2EditorLayout"
+#define MY_CUSTOM_ASSET2_EDITOR_TAB "MyCustomAsset2EditorTab"
+#define MY_CUSTOM_ASSET2_DETAILS_TAB "MyCustomAsset2DetailsTab"
 
 void FMyCustomAsset2EditorToolkit::InitEditor(const FAssetOpenArgs& OpenArgs)
 {
@@ -17,7 +17,7 @@ void FMyCustomAsset2EditorToolkit::InitEditor(const FAssetOpenArgs& OpenArgs)
 	
 	Asset = InObjects[0];
 
-	const TSharedRef<FTabManager::FLayout> Layout = FTabManager::NewLayout(LAYOUT)
+	const TSharedRef<FTabManager::FLayout> Layout = FTabManager::NewLayout(MY_CUSTOM_ASSET2_LAYOUT)
 	->AddArea
 	(
 		FTabManager::NewPrimaryArea()->SetOrientation(Orient_Vertical)
@@ -30,13 +30,13 @@ void FMyCustomAsset2EditorToolkit::InitEditor(const FAssetOpenArgs& OpenArgs)
 			(
 				FTabManager::NewStack()
 				->SetSizeCoefficient(0.8f)
-				->AddTab(EDITOR_TAB, ETabState::OpenedTab)
+				->AddTab(MY_CUSTOM_ASSET2_EDITOR_TAB, ETabState::OpenedTab)
 			)
 			->Split
 			(
 				FTabManager::NewStack()
 				->SetSizeCoefficient(0.2f)
-				->AddTab(DETAILS_TAB, ETabState::OpenedTab)
+				->AddTab(MY_CUSTOM_ASSET2_DETAILS_TAB, ETabState::OpenedTab)
 			)
 		)
 		->Split
@@ -57,7 +57,7 @@ void FMyCustomAsset2EditorToolkit::RegisterTabSpawners(const TSharedRef<FTabMana
 
 	WorkspaceMenuCategory = InTabManager->AddLocalWorkspaceMenuCategory(INVTEXT("Normal Distribution Editor"));
 
-	InTabManager->RegisterTabSpawner(EDITOR_TAB, FOnSpawnTab::CreateLambda([this](const FSpawnTabArgs&)
+	InTabManager->RegisterTabSpawner(MY_CUSTOM_ASSET2_EDITOR_TAB, FOnSpawnTab::CreateLambda([this](const FSpawnTabArgs&)
 	{
 		return SNew(SDockTab)
 		[
@@ -72,7 +72,7 @@ void FMyCustomAsset2EditorToolkit::RegisterTabSpawners(const TSharedRef<FTabMana
 	DetailsViewArgs.NameAreaSettings = FDetailsViewArgs::HideNameArea;
 	const TSharedRef<IDetailsView> DetailsView = PropertyEditorModule.CreateDetailView(DetailsViewArgs);
 	DetailsView->SetObjects(TArray<UObject*>{ Asset });
-	InTabManager->RegisterTabSpawner(DETAILS_TAB, FOnSpawnTab::CreateLambda([=](const FSpawnTabArgs&)
+	InTabManager->RegisterTabSpawner(MY_CUSTOM_ASSET2_DETAILS_TAB, FOnSpawnTab::CreateLambda([=](const FSpawnTabArgs&)
 	{
 		return SNew(SDockTab)
 		[
@@ -86,6 +86,6 @@ void FMyCustomAsset2EditorToolkit::RegisterTabSpawners(const TSharedRef<FTabMana
 void FMyCustomAsset2EditorToolkit::UnregisterTabSpawners(const TSharedRef<FTabManager>& InTabManager)
 {
 	FAssetEditorToolkit::UnregisterTabSpawners(InTabManager);
-	InTabManager->UnregisterTabSpawner(EDITOR_TAB);
-	InTabManager->UnregisterTabSpawner(DETAILS_TAB);
+	InTabManager->UnregisterTabSpawner(MY_CUSTOM_ASSET2_EDITOR_TAB);
+	InTabManager->UnregisterTabSpawner(MY_CUSTOM_ASSET2_DETAILS_TAB);
 }

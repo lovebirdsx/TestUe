@@ -1,15 +1,21 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
+#include "MyCustomAsset3EditorState.h"
 #include "Toolkits/AssetEditorToolkit.h"
 
 class UMyCustomAsset3;
 
-class FMyCustomAsset3EditorToolkit : public FAssetEditorToolkit
+class FMyCustomAsset3EditorToolkit : public FAssetEditorToolkit, public IMyCustomAsset3EditorState
 {
 public:
 	void InitEditor(const FAssetOpenArgs& OpenArgs);
 
+	// IMyCustomAsset3EditorState Begin
+	virtual UMyCustomAsset3* GetAsset() override { return Asset; }
+	virtual UEdGraph* GetGraph() override { return Graph; }
+	// IMyCustomAsset3EditorState End
+	
 	virtual void RegisterTabSpawners(const TSharedRef<FTabManager>& TabManager) override;
 	virtual void UnregisterTabSpawners(const TSharedRef<FTabManager>& TabManager) override;
 
@@ -19,4 +25,6 @@ public:
 	virtual FLinearColor GetWorldCentricTabColorScale() const override { return {}; }
 private:
 	UMyCustomAsset3* Asset = nullptr;
+
+	UEdGraph* Graph = nullptr;
 };

@@ -18,6 +18,8 @@ public class MyAssetEditor : ModuleRules
             "InputCore",
             "UnrealEd",
             "AssetDefinition",
+            "Projects",
+            "ToolMenus",
             "MyAsset",
         });
     }

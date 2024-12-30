@@ -1,10 +1,14 @@
 ﻿#include "MyCustomAsset3EditorToolkit.h"
-#include "MyCustomAsset3.h"
-#include "SMyCustomAsset3EditorWindow.h"
 
-#define LAYOUT "MyCustomAsset3EditorLayout"
-#define EDITOR_TAB "MyCustomAsset3EditorTab"
-#define DETAILS_TAB "MyCustomAsset3DetailsTab"
+#include "CustomGraphSchema3.h"
+#include "MyCustomAsset3.h"
+#include "SMyCustomAsset3DetailWindow.h"
+#include "SMyCustomAsset3EditorWindow.h"
+#include "Kismet2/BlueprintEditorUtils.h"
+
+#define MY_CUSTOM_ASSET3_LAYOUT "MyCustomAsset3EditorLayout"
+#define MY_CUSTOM_ASSET3_EDITOR_TAB "MyCustomAsset3EditorTab"
+#define MY_CUSTOM_ASSET3_DETAILS_TAB "MyCustomAsset3DetailsTab"
 
 void FMyCustomAsset3EditorToolkit::InitEditor(const FAssetOpenArgs& OpenArgs)
 {
@@ -16,8 +20,14 @@ void FMyCustomAsset3EditorToolkit::InitEditor(const FAssetOpenArgs& OpenArgs)
 	}
 	
 	Asset = InObjects[0];
+	Graph = FBlueprintEditorUtils::CreateNewGraph(
+		Asset,
+		NAME_None,
+		UEdGraph::StaticClass(),
+		UCustomGraphSchema3::StaticClass()
+	);
 
-	const TSharedRef<FTabManager::FLayout> Layout = FTabManager::NewLayout(LAYOUT)
+	const TSharedRef<FTabManager::FLayout> Layout = FTabManager::NewLayout(MY_CUSTOM_ASSET3_LAYOUT)
 	->AddArea
 	(
 		FTabManager::NewPrimaryArea()->SetOrientation(Orient_Vertical)
@@ -29,14 +39,14 @@ void FMyCustomAsset3EditorToolkit::InitEditor(const FAssetOpenArgs& OpenArgs)
 			->Split
 			(
 				FTabManager::NewStack()
-				->SetSizeCoefficient(0.8f)
-				->AddTab(EDITOR_TAB, ETabState::OpenedTab)
+				->SetSizeCoefficient(0.7f)
+				->AddTab(MY_CUSTOM_ASSET3_EDITOR_TAB, ETabState::OpenedTab)
 			)
 			->Split
 			(
 				FTabManager::NewStack()
-				->SetSizeCoefficient(0.2f)
-				->AddTab(DETAILS_TAB, ETabState::OpenedTab)
+				->SetSizeCoefficient(0.3f)
+				->AddTab(MY_CUSTOM_ASSET3_DETAILS_TAB, ETabState::OpenedTab)
 			)
 		)
 		->Split
@@ -57,26 +67,22 @@ void FMyCustomAsset3EditorToolkit::RegisterTabSpawners(const TSharedRef<FTabMana
 
 	WorkspaceMenuCategory = InTabManager->AddLocalWorkspaceMenuCategory(INVTEXT("Normal Distribution Editor"));
 
-	InTabManager->RegisterTabSpawner(EDITOR_TAB, FOnSpawnTab::CreateLambda([this](const FSpawnTabArgs&)
+	InTabManager->RegisterTabSpawner(MY_CUSTOM_ASSET3_EDITOR_TAB, FOnSpawnTab::CreateLambda([this](const FSpawnTabArgs&)
 	{
 		return SNew(SDockTab)
 		[
-			SNew(SMyCustomAsset3EditorWindow, this->Asset)
+			SNew(SMyCustomAsset3EditorWindow, this)
 		];
 	}))
 	.SetDisplayName(INVTEXT("Editor"))
 	.SetGroup(WorkspaceMenuCategory.ToSharedRef());
 
-	FPropertyEditorModule& PropertyEditorModule = FModuleManager::GetModuleChecked<FPropertyEditorModule>("PropertyEditor");
-	FDetailsViewArgs DetailsViewArgs;
-	DetailsViewArgs.NameAreaSettings = FDetailsViewArgs::HideNameArea;
-	const TSharedRef<IDetailsView> DetailsView = PropertyEditorModule.CreateDetailView(DetailsViewArgs);
-	DetailsView->SetObjects(TArray<UObject*>{ Asset });
-	InTabManager->RegisterTabSpawner(DETAILS_TAB, FOnSpawnTab::CreateLambda([=](const FSpawnTabArgs&)
+	
+	InTabManager->RegisterTabSpawner(MY_CUSTOM_ASSET3_DETAILS_TAB, FOnSpawnTab::CreateLambda([this](const FSpawnTabArgs&)
 	{
 		return SNew(SDockTab)
 		[
-			DetailsView
+			SNew(SMyCustomAsset3DetailWindow, this->Asset)
 		];
 	}))
 	.SetDisplayName(INVTEXT("Details"))
@@ -86,6 +92,6 @@ void FMyCustomAsset3EditorToolkit::RegisterTabSpawners(const TSharedRef<FTabMana
 void FMyCustomAsset3EditorToolkit::UnregisterTabSpawners(const TSharedRef<FTabManager>& InTabManager)
 {
 	FAssetEditorToolkit::UnregisterTabSpawners(InTabManager);
-	InTabManager->UnregisterTabSpawner(EDITOR_TAB);
-	InTabManager->UnregisterTabSpawner(DETAILS_TAB);
+	InTabManager->UnregisterTabSpawner(MY_CUSTOM_ASSET3_EDITOR_TAB);
+	InTabManager->UnregisterTabSpawner(MY_CUSTOM_ASSET3_DETAILS_TAB);
 }
