@@ -12,8 +12,6 @@
 
 void FMyBlueprintModule::StartupModule()
 {
-	UBlueprintFactory *MyFactory = NewObject<UMyBlueprintFactory>();
-
 	IAssetTools& AssetTools = FModuleManager::LoadModuleChecked<FAssetToolsModule>("AssetTools").Get();
 	const TSharedPtr<FAssetTypeActions_MyBlueprint> MyFactoryActions = MakeShareable(new FAssetTypeActions_MyBlueprint());
 	AssetTools.RegisterAssetTypeActions(MyFactoryActions.ToSharedRef());

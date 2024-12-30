@@ -5,7 +5,7 @@ public class MyAssetEditor : ModuleRules
     public MyAssetEditor(ReadOnlyTargetRules Target) : base(Target)
     {
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-
+        
         PublicDependencyModuleNames.AddRange(new string[] {
             "Core",
         });
@@ -15,6 +15,9 @@ public class MyAssetEditor : ModuleRules
             "Engine",
             "Slate",
             "SlateCore",
+            "InputCore",
+            "UnrealEd",
+            "AssetDefinition",
             "MyAsset",
         });
     }

@@ -14,7 +14,7 @@
     },
     {
       "Name": "AutomationController",
-      "Type": "Developer",
+      "Type": "DeveloperTool",
       "LoadingPhase": "Default"
     }
   ],
