@@ -1,4 +1,4 @@
-﻿#include "MyCustomAsset3Factory.h"
+﻿#include "CustomEditor3/MyCustomAsset3Factory.h"
 #include "MyCustomAsset3.h"
 
 UMyCustomAsset3Factory::UMyCustomAsset3Factory()

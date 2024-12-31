@@ -7,7 +7,7 @@ public class MyAssetEditor : ModuleRules
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
         
         PublicDependencyModuleNames.AddRange(new string[] {
-            "Core",
+            "Core"
         });
 
         PrivateDependencyModuleNames.AddRange(new string[] {
@@ -20,6 +20,7 @@ public class MyAssetEditor : ModuleRules
             "AssetDefinition",
             "Projects",
             "ToolMenus",
+            "GraphEditor",
             "MyAsset",
         });
     }

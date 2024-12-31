@@ -1,14 +1,15 @@
-﻿#include "SMyCustomAsset3DetailWindow.h"
+﻿#include "CustomEditor2/SMyCustomAsset2EditorWindow.h"
+
 #include "Widgets/Layout/SBox.h"
 #include "Widgets/Input/SEditableTextBox.h"
 #include "Widgets/Input/SButton.h"
 #include "Widgets/Input/SNumericEntryBox.h"
 #include "Editor.h"
-#include "MyCustomAsset3.h"
+#include "MyCustomAsset2.h"
 
-#define LOCTEXT_NAMESPACE "SMyCustomAsset3DetailWindow"
+#define LOCTEXT_NAMESPACE "SMyCustomAsset2EditorWindow"
 
-void SMyCustomAsset3DetailWindow::Construct(const FArguments& InArgs, UMyCustomAsset3* InAsset)
+void SMyCustomAsset2EditorWindow::Construct(const FArguments& InArgs, UMyCustomAsset2* InAsset)
 {
     Asset = InAsset;
 
@@ -38,7 +39,7 @@ void SMyCustomAsset3DetailWindow::Construct(const FArguments& InArgs, UMyCustomA
                 {
                     return FText::FromString(Asset->AssetName);
                 })
-                .OnVerifyTextChanged(this, &SMyCustomAsset3DetailWindow::OnAssetNameChanged)
+                .OnVerifyTextChanged(this, &SMyCustomAsset2EditorWindow::OnAssetNameChanged)
             ]
             
             + SVerticalBox::Slot()
@@ -58,29 +59,29 @@ void SMyCustomAsset3DetailWindow::Construct(const FArguments& InArgs, UMyCustomA
                 {                    
                     return TOptional(Asset ? Asset->AssetValue : 0);
                 })
-                .OnValueCommitted(this, &SMyCustomAsset3DetailWindow::OnAssetValueCommitted)
+                .OnValueCommitted(this, &SMyCustomAsset2EditorWindow::OnAssetValueCommitted)
             ]           
         ]
     ];
 
-    FCoreUObjectDelegates::OnObjectPropertyChanged.AddSP(SharedThis(this), &SMyCustomAsset3DetailWindow::OnObjectPropertyChanged);
+    FCoreUObjectDelegates::OnObjectPropertyChanged.AddSP(SharedThis(this), &SMyCustomAsset2EditorWindow::OnObjectPropertyChanged);
 }
 
-SMyCustomAsset3DetailWindow::~SMyCustomAsset3DetailWindow()
+SMyCustomAsset2EditorWindow::~SMyCustomAsset2EditorWindow()
 {
     FCoreUObjectDelegates::OnObjectPropertyChanged.RemoveAll(this);
 }
 
-TSharedRef<SDockTab> SMyCustomAsset3DetailWindow::OnSpawnTab(const FSpawnTabArgs& SpawnTabArgs)
+TSharedRef<SDockTab> SMyCustomAsset2EditorWindow::OnSpawnTab(const FSpawnTabArgs& SpawnTabArgs)
 {
     return SNew(SDockTab)
         .TabRole(ETabRole::NomadTab)
         [
-            SNew(SMyCustomAsset3DetailWindow, Asset)
+            SNew(SMyCustomAsset2EditorWindow, Asset)
         ];
 }
 
-void SMyCustomAsset3DetailWindow::OnObjectPropertyChanged(UObject* Object, FPropertyChangedEvent& PropertyChangedEvent)
+void SMyCustomAsset2EditorWindow::OnObjectPropertyChanged(UObject* Object, FPropertyChangedEvent& PropertyChangedEvent)
 {
     if (Object == Asset)
     {
@@ -88,7 +89,7 @@ void SMyCustomAsset3DetailWindow::OnObjectPropertyChanged(UObject* Object, FProp
     }
 }
 
-void SMyCustomAsset3DetailWindow::OnAssetValueCommitted(const int Value, ETextCommit::Type CommitType)
+void SMyCustomAsset2EditorWindow::OnAssetValueCommitted(const int Value, ETextCommit::Type CommitType)
 {
     if (!Asset)
     {
@@ -101,7 +102,7 @@ void SMyCustomAsset3DetailWindow::OnAssetValueCommitted(const int Value, ETextCo
     Asset->PostEditChange();
 }
 
-bool SMyCustomAsset3DetailWindow::OnAssetNameChanged(const FText& Text, FText& Text1)
+bool SMyCustomAsset2EditorWindow::OnAssetNameChanged(const FText& Text, FText& Text1)
 {
     if (!Asset)
     {

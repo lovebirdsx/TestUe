@@ -13,16 +13,7 @@ public:
 SLATE_END_ARGS()
 
 	void Construct(const FArguments& InArgs, IMyCustomAsset3EditorState *InState);
-	virtual ~SMyCustomAsset3EditorWindow() override;
 
-	TSharedRef<SDockTab> OnSpawnTab(const FSpawnTabArgs& SpawnTabArgs);
-
-private:
-	void OnObjectPropertyChanged(UObject* Object, FPropertyChangedEvent& PropertyChangedEvent);	
-	
+private:	
 	IMyCustomAsset3EditorState *State = nullptr;
-
-	// 编辑器控件
-	TSharedPtr<SEditableTextBox> AssetNameBox;
-	TSharedPtr<SNumericEntryBox<int32>> AssetValueBox;
 };

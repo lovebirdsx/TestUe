@@ -1,6 +1,6 @@
-﻿#include "MyCustomAsset2EditorToolkit.h"
+﻿#include "CustomEditor2/MyCustomAsset2EditorToolkit.h"
 #include "MyCustomAsset2.h"
-#include "SMyCustomAsset2EditorWindow.h"
+#include "CustomEditor2/SMyCustomAsset2EditorWindow.h"
 
 #define MY_CUSTOM_ASSET2_LAYOUT "MyCustomAsset2EditorLayout"
 #define MY_CUSTOM_ASSET2_EDITOR_TAB "MyCustomAsset2EditorTab"

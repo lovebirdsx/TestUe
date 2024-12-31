@@ -1,9 +1,11 @@
-﻿#include "MyCustomAsset3EditorToolkit.h"
+﻿#include "CustomEditor3/MyCustomAsset3EditorToolkit.h"
 
-#include "CustomGraphSchema3.h"
+#include "CustomRuntimeGraph.h"
+#include "CustomEditor3/CustomGraphSchema.h"
 #include "MyCustomAsset3.h"
-#include "SMyCustomAsset3DetailWindow.h"
-#include "SMyCustomAsset3EditorWindow.h"
+#include "CustomEditor3/CustomGraphOperations.h"
+#include "CustomEditor3/SMyCustomAsset3DetailWindow.h"
+#include "CustomEditor3/SMyCustomAsset3EditorWindow.h"
 #include "Kismet2/BlueprintEditorUtils.h"
 
 #define MY_CUSTOM_ASSET3_LAYOUT "MyCustomAsset3EditorLayout"
@@ -24,8 +26,16 @@ void FMyCustomAsset3EditorToolkit::InitEditor(const FAssetOpenArgs& OpenArgs)
 		Asset,
 		NAME_None,
 		UEdGraph::StaticClass(),
-		UCustomGraphSchema3::StaticClass()
+		UCustomGraphSchema::StaticClass()
 	);
+
+	SyncAssetToGraph();
+	Graph->AddOnGraphChangedHandler(FOnGraphChanged::FDelegate::CreateLambda(
+		[this] (const FEdGraphEditAction& Action)
+		{
+			this->SyncGraphToAsset();
+		}		
+	));
 
 	const TSharedRef<FTabManager::FLayout> Layout = FTabManager::NewLayout(MY_CUSTOM_ASSET3_LAYOUT)
 	->AddArea
@@ -58,7 +68,7 @@ void FMyCustomAsset3EditorToolkit::InitEditor(const FAssetOpenArgs& OpenArgs)
 	);
 
 	const TArray<UObject*> InObjectsArray = { Asset };
-	InitAssetEditor(EToolkitMode::Standalone, OpenArgs.ToolkitHost, FName("MyCustomAsset2Editor"), Layout, true, true, InObjectsArray);
+	InitAssetEditor(EToolkitMode::Standalone, OpenArgs.ToolkitHost, FName("MyCustomAsset3Editor"), Layout, true, true, InObjectsArray);
 }
 
 void FMyCustomAsset3EditorToolkit::RegisterTabSpawners(const TSharedRef<FTabManager>& InTabManager)
@@ -94,4 +104,29 @@ void FMyCustomAsset3EditorToolkit::UnregisterTabSpawners(const TSharedRef<FTabMa
 	FAssetEditorToolkit::UnregisterTabSpawners(InTabManager);
 	InTabManager->UnregisterTabSpawner(MY_CUSTOM_ASSET3_EDITOR_TAB);
 	InTabManager->UnregisterTabSpawner(MY_CUSTOM_ASSET3_DETAILS_TAB);
+}
+
+void FMyCustomAsset3EditorToolkit::SyncGraphToAsset()
+{
+	if (Asset == nullptr || Graph == nullptr)
+	{
+		return;
+	}
+
+	if (Asset->RuntimeGraph == nullptr)
+	{
+		Asset->RuntimeGraph = NewObject<UCustomRuntimeGraph>();
+	}
+	
+	FCustomGraphOperations::UIGraphToRuntimeGraph(Graph, Asset->RuntimeGraph);	
+}
+
+void FMyCustomAsset3EditorToolkit::SyncAssetToGraph()
+{
+	if (Asset->RuntimeGraph == nullptr || Graph == nullptr)
+	{
+		return;
+	}
+
+	FCustomGraphOperations::RuntimeGraphToUIGraph(Asset->RuntimeGraph, Graph);	
 }

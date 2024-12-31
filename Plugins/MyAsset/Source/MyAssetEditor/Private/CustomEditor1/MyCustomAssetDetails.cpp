@@ -1,7 +1,7 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MyCustomAssetDetails.h"
+#include "CustomEditor1/MyCustomAssetDetails.h"
 
 #include "DetailCategoryBuilder.h"
 #include "DetailLayoutBuilder.h"

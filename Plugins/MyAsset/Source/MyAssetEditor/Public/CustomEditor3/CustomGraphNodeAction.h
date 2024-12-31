@@ -2,16 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "EdGraph/EdGraph.h"
-#include "CustomGraphSchema3.generated.h"
-
-UCLASS()
-class MYASSETEDITOR_API UCustomGraphSchema3 : public UEdGraphSchema
-{
-	GENERATED_BODY()
-	
-public:
-	virtual void GetContextMenuActions(UToolMenu* Menu, UGraphNodeContextMenuContext* Context) const override;
-};
+#include "CustomGraphNodeAction.generated.h"
 
 USTRUCT()
 struct FNewNodeAction: public FEdGraphSchemaAction
@@ -19,7 +10,7 @@ struct FNewNodeAction: public FEdGraphSchemaAction
 	GENERATED_BODY()
 
 	FNewNodeAction() {}
-	FNewNodeAction(FText InNodeCategory, FText InMenuDesc, FText InToolTip, const int32 InGrouping)
+	FNewNodeAction(const FText& InNodeCategory, const FText& InMenuDesc, const FText& InToolTip, const int32 InGrouping)
 		: FEdGraphSchemaAction(InNodeCategory, InMenuDesc, InToolTip, InGrouping)
 	{
 	}

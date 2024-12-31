@@ -1,7 +1,7 @@
-﻿#include "AssetDefinition_MyCustomAsset2.h"
+﻿#include "CustomEditor2/AssetDefinition_MyCustomAsset2.h"
 
 #include "MyCustomAsset2.h"
-#include "MyCustomAsset2EditorToolkit.h"
+#include "CustomEditor2/MyCustomAsset2EditorToolkit.h"
 
 #define LOCTEXT_NAMESPACE "MyCustomAssetEditor"
 

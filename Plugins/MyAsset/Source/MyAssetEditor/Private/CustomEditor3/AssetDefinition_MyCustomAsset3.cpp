@@ -1,7 +1,7 @@
-﻿#include "AssetDefinition_MyCustomAsset3.h"
+﻿#include "CustomEditor3/AssetDefinition_MyCustomAsset3.h"
 
 #include "MyCustomAsset3.h"
-#include "MyCustomAsset3EditorToolkit.h"
+#include "CustomEditor3/MyCustomAsset3EditorToolkit.h"
 #include "Styling/SlateIconFinder.h"
 
 #define LOCTEXT_NAMESPACE "MyCustomAssetEditor"
