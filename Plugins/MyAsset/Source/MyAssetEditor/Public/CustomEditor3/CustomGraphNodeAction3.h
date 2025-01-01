@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "EdGraph/EdGraph.h"
-#include "CustomGraphNodeAction.generated.h"
+#include "CustomGraphNodeAction3.generated.h"
 
 USTRUCT()
 struct FNewNodeAction: public FEdGraphSchemaAction

@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 
-class FCustomPinFactory;
+class FCustomPinFactory3;
 class FResourceManager;
 
 class MYASSETEDITOR_API FMyAssetEditorModule : public IModuleInterface
@@ -13,5 +13,5 @@ public:
 
 private:
     TSharedPtr<FResourceManager> ResourceManager;
-    TSharedPtr<FCustomPinFactory> CustomPinFactory;
+    TSharedPtr<FCustomPinFactory3> CustomPinFactory;
 };

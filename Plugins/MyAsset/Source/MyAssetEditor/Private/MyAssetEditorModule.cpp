@@ -3,7 +3,7 @@
 #include "MyCustomAsset.h"
 #include "CustomEditor1/MyCustomAssetDetails.h"
 #include "ResouceManager.h"
-#include "CustomEditor3/CustomGraphPin.h"
+#include "CustomEditor3/CustomGraphPin3.h"
 
 #define LOCTEXT_NAMESPACE "FMyAssetEditorModule"
 
@@ -15,7 +15,7 @@ void FMyAssetEditorModule::StartupModule()
 	ResourceManager = MakeShareable(new FResourceManager);
 	ResourceManager->RegisterResource();
 
-	CustomPinFactory = MakeShareable(new FCustomPinFactory);
+	CustomPinFactory = MakeShareable(new FCustomPinFactory3);
 	FEdGraphUtilities::RegisterVisualPinFactory(CustomPinFactory);
 }
 

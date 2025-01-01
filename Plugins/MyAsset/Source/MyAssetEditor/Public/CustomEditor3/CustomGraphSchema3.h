@@ -2,10 +2,10 @@
 
 #include "CoreMinimal.h"
 #include "EdGraph/EdGraph.h"
-#include "CustomGraphSchema.generated.h"
+#include "CustomGraphSchema3.generated.h"
 
 UCLASS()
-class MYASSETEDITOR_API UCustomGraphSchema : public UEdGraphSchema
+class MYASSETEDITOR_API UCustomGraphSchema3 : public UEdGraphSchema
 {
 	GENERATED_BODY()
 	

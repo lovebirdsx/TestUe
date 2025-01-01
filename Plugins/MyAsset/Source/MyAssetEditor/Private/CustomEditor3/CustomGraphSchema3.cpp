@@ -1,9 +1,9 @@
-#include "CustomEditor3/CustomGraphSchema.h"
-#include "CustomEditor3/CustomGraphNodeAction.h"
+#include "CustomEditor3/CustomGraphSchema3.h"
+#include "CustomEditor3/CustomGraphNodeAction3.h"
 
-#define LOCTEXT_NAMESPACE "UCustomGraphSchema"
+#define LOCTEXT_NAMESPACE "UCustomGraphSchema3"
 
-void UCustomGraphSchema::GetGraphContextActions(FGraphContextMenuBuilder& ContextMenuBuilder) const
+void UCustomGraphSchema3::GetGraphContextActions(FGraphContextMenuBuilder& ContextMenuBuilder) const
 {	
 	const TSharedPtr<FNewNodeAction> NewNodeAction(new FNewNodeAction(
 		FText::FromString(TEXT("Nodes")),
@@ -15,7 +15,7 @@ void UCustomGraphSchema::GetGraphContextActions(FGraphContextMenuBuilder& Contex
 	ContextMenuBuilder.AddAction(NewNodeAction);	
 }
 
-const FPinConnectionResponse UCustomGraphSchema::CanCreateConnection(const UEdGraphPin* A, const UEdGraphPin* B) const
+const FPinConnectionResponse UCustomGraphSchema3::CanCreateConnection(const UEdGraphPin* A, const UEdGraphPin* B) const
 {
 	if (A == nullptr || B == nullptr)
 	{

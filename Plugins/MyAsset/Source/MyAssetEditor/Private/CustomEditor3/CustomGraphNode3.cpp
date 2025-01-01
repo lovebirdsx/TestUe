@@ -1,26 +1,26 @@
-﻿#include "CustomEditor3/CustomGraphNode.h"
+﻿#include "CustomEditor3/CustomGraphNode3.h"
 
 #include "ResouceManager.h"
 
-FText UCustomGraphNode::GetNodeTitle(ENodeTitleType::Type TitleType) const
+FText UCustomGraphNode3::GetNodeTitle(ENodeTitleType::Type TitleType) const
 {
 	return FText::FromString(TEXT("My Node Title"));
 }
 
-FLinearColor UCustomGraphNode::GetNodeTitleColor() const
+FLinearColor UCustomGraphNode3::GetNodeTitleColor() const
 {
 	return FLinearColor::Green;
 }
 
-bool UCustomGraphNode::CanUserDeleteNode() const
+bool UCustomGraphNode3::CanUserDeleteNode() const
 {
 	return true;
 }
 
-void UCustomGraphNode::GetNodeContextMenuActions(UToolMenu* Menu, UGraphNodeContextMenuContext* Context) const
+void UCustomGraphNode3::GetNodeContextMenuActions(UToolMenu* Menu, UGraphNodeContextMenuContext* Context) const
 {
 	FToolMenuSection& Section = Menu->AddSection(TEXT("CustomNodeActions"), FText::FromString("CustomNodeActions"));
-	UCustomGraphNode *Node = const_cast<UCustomGraphNode*>(this);
+	UCustomGraphNode3 *Node = const_cast<UCustomGraphNode3*>(this);
 	Section.AddMenuEntry(
 		TEXT("AddPinEntry"),
 		FText::FromString("Add Pin"),
@@ -70,7 +70,7 @@ void UCustomGraphNode::GetNodeContextMenuActions(UToolMenu* Menu, UGraphNodeCont
 	));
 }
 
-UEdGraphPin* UCustomGraphNode::CreateCustomPin(const EEdGraphPinDirection Dir, const FName Name)
+UEdGraphPin* UCustomGraphNode3::CreateCustomPin(const EEdGraphPinDirection Dir, const FName Name)
 {
 	const FName Category = (Dir == EGPD_Input) ? FName(TEXT("Inputs")) : FName(TEXT("Outputs"));
 	const FName SubCategory = TEXT("CustomPin");

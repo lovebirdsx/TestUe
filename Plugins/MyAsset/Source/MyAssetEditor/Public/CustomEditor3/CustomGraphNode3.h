@@ -1,10 +1,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "CustomGraphNode.generated.h"
+#include "CustomGraphNode3.generated.h"
 
 UCLASS()
-class MYASSETEDITOR_API UCustomGraphNode : public UEdGraphNode 
+class MYASSETEDITOR_API UCustomGraphNode3 : public UEdGraphNode 
 {
 	GENERATED_BODY()
 	

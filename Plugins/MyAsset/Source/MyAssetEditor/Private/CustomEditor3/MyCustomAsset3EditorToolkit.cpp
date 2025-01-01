@@ -1,9 +1,9 @@
 ﻿#include "CustomEditor3/MyCustomAsset3EditorToolkit.h"
 
-#include "CustomRuntimeGraph.h"
-#include "CustomEditor3/CustomGraphSchema.h"
+#include "CustomRuntimeGraph3.h"
+#include "CustomEditor3/CustomGraphSchema3.h"
 #include "MyCustomAsset3.h"
-#include "CustomEditor3/CustomGraphOperations.h"
+#include "CustomEditor3/CustomGraphOperations3.h"
 #include "CustomEditor3/SMyCustomAsset3DetailWindow.h"
 #include "CustomEditor3/SMyCustomAsset3EditorWindow.h"
 #include "Kismet2/BlueprintEditorUtils.h"
@@ -26,7 +26,7 @@ void FMyCustomAsset3EditorToolkit::InitEditor(const FAssetOpenArgs& OpenArgs)
 		Asset,
 		NAME_None,
 		UEdGraph::StaticClass(),
-		UCustomGraphSchema::StaticClass()
+		UCustomGraphSchema3::StaticClass()
 	);
 
 	SyncAssetToGraph();
@@ -115,10 +115,10 @@ void FMyCustomAsset3EditorToolkit::SyncGraphToAsset()
 
 	if (Asset->RuntimeGraph == nullptr)
 	{
-		Asset->RuntimeGraph = NewObject<UCustomRuntimeGraph>();
+		Asset->RuntimeGraph = NewObject<UCustomRuntimeGraph3>();
 	}
 	
-	FCustomGraphOperations::UIGraphToRuntimeGraph(Graph, Asset->RuntimeGraph);	
+	FCustomGraphOperations3::UIGraphToRuntimeGraph(Graph, Asset->RuntimeGraph);	
 }
 
 void FMyCustomAsset3EditorToolkit::SyncAssetToGraph()
@@ -128,5 +128,5 @@ void FMyCustomAsset3EditorToolkit::SyncAssetToGraph()
 		return;
 	}
 
-	FCustomGraphOperations::RuntimeGraphToUIGraph(Asset->RuntimeGraph, Graph);	
+	FCustomGraphOperations3::RuntimeGraphToUIGraph(Asset->RuntimeGraph, Graph);	
 }

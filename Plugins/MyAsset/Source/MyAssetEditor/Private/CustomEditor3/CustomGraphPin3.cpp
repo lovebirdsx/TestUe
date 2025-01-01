@@ -1,6 +1,6 @@
-﻿#include "CustomEditor3/CustomGraphPin.h"
+﻿#include "CustomEditor3/CustomGraphPin3.h"
 
-FSlateColor SCustomGraphPin::GetPinColor() const
+FSlateColor SCustomGraphPin3::GetPinColor() const
 {
 	if (GraphPinObj && GraphPinObj->Direction == EGPD_Input)
 	{
@@ -10,11 +10,11 @@ FSlateColor SCustomGraphPin::GetPinColor() const
 	return FSlateColor(FLinearColor(0.2f, 1.0f, 0.2f));
 }
 
-TSharedPtr<SGraphPin> FCustomPinFactory::CreatePin(UEdGraphPin* Pin) const
+TSharedPtr<SGraphPin> FCustomPinFactory3::CreatePin(UEdGraphPin* Pin) const
 {
 	if (FName(TEXT("CustomPin")) == Pin->PinType.PinSubCategory)
 	{
-		return SNew(SCustomGraphPin, Pin);
+		return SNew(SCustomGraphPin3, Pin);
 	}
 
 	return nullptr;

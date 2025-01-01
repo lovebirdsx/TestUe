@@ -1,20 +1,20 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-#include "MyCustomAsset3EditorState.h"
+#include "MyCustomAsset3EditorState3.h"
 #include "Toolkits/AssetEditorToolkit.h"
 
 class UMyCustomAsset3;
 
-class FMyCustomAsset3EditorToolkit : public FAssetEditorToolkit, public IMyCustomAsset3EditorState
+class FMyCustomAsset3EditorToolkit : public FAssetEditorToolkit, public IMyCustomAsset3EditorState3
 {
 public:
 	void InitEditor(const FAssetOpenArgs& OpenArgs);
 
-	// IMyCustomAsset3EditorState Begin
+	// IMyCustomAsset3EditorState3 Begin
 	virtual UMyCustomAsset3* GetAsset() override { return Asset; }
 	virtual UEdGraph* GetGraph() override { return Graph; }
-	// IMyCustomAsset3EditorState End
+	// IMyCustomAsset3EditorState3 End
 
 	// FAssetEditorToolkit Begin
 	virtual void RegisterTabSpawners(const TSharedRef<FTabManager>& TabManager) override;

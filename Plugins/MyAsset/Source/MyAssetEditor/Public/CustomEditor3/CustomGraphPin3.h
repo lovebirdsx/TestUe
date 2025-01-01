@@ -3,9 +3,9 @@
 #include "EdGraphUtilities.h"
 #include "SGraphPin.h"
 
-class SCustomGraphPin : public SGraphPin
+class SCustomGraphPin3 : public SGraphPin
 {
-	SLATE_BEGIN_ARGS(SCustomGraphPin) {}		
+	SLATE_BEGIN_ARGS(SCustomGraphPin3) {}		
 	SLATE_END_ARGS()
 
 	void Construct(const FArguments& InArgs, UEdGraphPin* InPin)
@@ -17,9 +17,9 @@ protected:
 	virtual FSlateColor GetPinColor() const override;
 };
 
-class FCustomPinFactory : public FGraphPanelPinFactory
+class FCustomPinFactory3 : public FGraphPanelPinFactory
 {
 public:
-	virtual ~FCustomPinFactory() override {}
+	virtual ~FCustomPinFactory3() override {}
 	virtual TSharedPtr<SGraphPin> CreatePin(UEdGraphPin* Pin) const override;
 };

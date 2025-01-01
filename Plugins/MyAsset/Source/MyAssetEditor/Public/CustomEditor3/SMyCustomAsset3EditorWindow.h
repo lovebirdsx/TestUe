@@ -2,7 +2,7 @@
 
 #include "Widgets/SCompoundWidget.h"
 
-class IMyCustomAsset3EditorState;
+class IMyCustomAsset3EditorState3;
 class UMyCustomAsset3;
 
 class SMyCustomAsset3EditorWindow : public SCompoundWidget
@@ -12,8 +12,8 @@ public:
 	SLATE_ARGUMENT(UMyCustomAsset3*, State)
 SLATE_END_ARGS()
 
-	void Construct(const FArguments& InArgs, IMyCustomAsset3EditorState *InState);
+	void Construct(const FArguments& InArgs, IMyCustomAsset3EditorState3 *InState);
 
 private:	
-	IMyCustomAsset3EditorState *State = nullptr;
+	IMyCustomAsset3EditorState3 *State = nullptr;
 };

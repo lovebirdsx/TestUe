@@ -4,7 +4,7 @@
 #include "UObject/Object.h"
 #include "MyCustomAsset3.generated.h"
 
-class UCustomRuntimeGraph;
+class UCustomRuntimeGraph3;
 
 UCLASS(BlueprintType)
 class MYASSET_API UMyCustomAsset3 : public UObject
@@ -19,5 +19,5 @@ public:
 	int32 AssetValue;
 
 	UPROPERTY()
-	UCustomRuntimeGraph* RuntimeGraph = nullptr;
+	UCustomRuntimeGraph3* RuntimeGraph = nullptr;
 };

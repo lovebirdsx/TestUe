@@ -3,11 +3,11 @@
 #include "Widgets/Input/SEditableTextBox.h"
 #include "Widgets/Input/SButton.h"
 #include "Editor.h"
-#include "CustomEditor3/MyCustomAsset3EditorState.h"
+#include "CustomEditor3/MyCustomAsset3EditorState3.h"
 
 #define LOCTEXT_NAMESPACE "SMyCustomAsset3EditorWindow"
 
-void SMyCustomAsset3EditorWindow::Construct(const FArguments& InArgs, IMyCustomAsset3EditorState *InState)
+void SMyCustomAsset3EditorWindow::Construct(const FArguments& InArgs, IMyCustomAsset3EditorState3 *InState)
 {
     State = InState;
 
