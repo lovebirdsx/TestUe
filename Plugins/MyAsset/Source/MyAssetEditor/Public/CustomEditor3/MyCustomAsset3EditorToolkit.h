@@ -24,6 +24,7 @@ public:
 	virtual FText GetBaseToolkitName() const override { return INVTEXT("My Custom Asset Editor3"); }
 	virtual FString GetWorldCentricTabPrefix() const override { return "My Custom Asset Editor3"; }
 	virtual FLinearColor GetWorldCentricTabColorScale() const override { return {}; }
+	virtual void OnClose() override;
 	// FAssetEditorToolkit End
 
 private:

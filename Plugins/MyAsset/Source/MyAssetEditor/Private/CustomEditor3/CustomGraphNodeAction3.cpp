@@ -1,7 +1,7 @@
 ﻿#include "CustomEditor3/CustomGraphNodeAction3.h"
 #include "CustomEditor3/CustomGraphNode3.h"
 
-UEdGraphNode* FNewNodeAction::PerformAction(UEdGraph* ParentGraph, UEdGraphPin* FromPin, const FVector2D Location, bool bSelectNewNode)
+UEdGraphNode* FNewNodeAction3::PerformAction(UEdGraph* ParentGraph, UEdGraphPin* FromPin, const FVector2D Location, bool bSelectNewNode)
 {
 	UCustomGraphNode3* N = NewObject<UCustomGraphNode3>(ParentGraph);
 	N->CreateNewGuid();

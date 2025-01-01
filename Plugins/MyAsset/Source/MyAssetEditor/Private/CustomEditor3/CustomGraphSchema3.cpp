@@ -5,7 +5,7 @@
 
 void UCustomGraphSchema3::GetGraphContextActions(FGraphContextMenuBuilder& ContextMenuBuilder) const
 {	
-	const TSharedPtr<FNewNodeAction> NewNodeAction(new FNewNodeAction(
+	const TSharedPtr<FNewNodeAction3> NewNodeAction(new FNewNodeAction3(
 		FText::FromString(TEXT("Nodes")),
 		FText::FromString(TEXT("New node")),
 		FText::FromString(TEXT("Create a new node")),

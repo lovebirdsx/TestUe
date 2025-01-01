@@ -5,12 +5,12 @@
 #include "CustomGraphNodeAction3.generated.h"
 
 USTRUCT()
-struct FNewNodeAction: public FEdGraphSchemaAction
+struct FNewNodeAction3: public FEdGraphSchemaAction
 {
 	GENERATED_BODY()
 
-	FNewNodeAction() {}
-	FNewNodeAction(const FText& InNodeCategory, const FText& InMenuDesc, const FText& InToolTip, const int32 InGrouping)
+	FNewNodeAction3() {}
+	FNewNodeAction3(const FText& InNodeCategory, const FText& InMenuDesc, const FText& InToolTip, const int32 InGrouping)
 		: FEdGraphSchemaAction(InNodeCategory, InMenuDesc, InToolTip, InGrouping)
 	{
 	}

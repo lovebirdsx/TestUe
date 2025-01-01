@@ -106,6 +106,11 @@ void FMyCustomAsset3EditorToolkit::UnregisterTabSpawners(const TSharedRef<FTabMa
 	InTabManager->UnregisterTabSpawner(MY_CUSTOM_ASSET3_DETAILS_TAB);
 }
 
+void FMyCustomAsset3EditorToolkit::OnClose()
+{
+	SyncGraphToAsset();
+}
+
 void FMyCustomAsset3EditorToolkit::SyncGraphToAsset()
 {
 	if (Asset == nullptr || Graph == nullptr)

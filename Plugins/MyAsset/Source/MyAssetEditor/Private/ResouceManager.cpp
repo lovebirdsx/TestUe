@@ -3,7 +3,7 @@
 #include "Interfaces/IPluginManager.h"
 #include "Styling/SlateStyleRegistry.h"
 
-const FName FResourceManager::StyleSetName(TEXT("CustomAssetEditorStyle"));
+const FName FResourceManager::StyleSetName(TEXT("CustomAssetEditorStyle3"));
 const FName FResourceManager::ClassThumbnail_MyCustomAsset2(TEXT("ClassThumbnail.MyCustomAsset2"));
 const FName FResourceManager::ClassIcon_MyCustomAsset2(TEXT("ClassIcon.MyCustomAsset2"));
 const FName FResourceManager::ClassThumbnail_MyCustomAsset3(TEXT("ClassThumbnail.MyCustomAsset3"));
