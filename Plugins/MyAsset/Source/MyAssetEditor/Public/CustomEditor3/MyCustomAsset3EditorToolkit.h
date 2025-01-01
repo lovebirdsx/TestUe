@@ -6,7 +6,7 @@
 
 class UMyCustomAsset3;
 
-class FMyCustomAsset3EditorToolkit : public FAssetEditorToolkit, public IMyCustomAsset3EditorState3
+class FMyCustomAsset3EditorToolkit : public FAssetEditorToolkit, public IMyCustomAsset3EditorState3, public FEditorUndoClient
 {
 public:
 	void InitEditor(const FAssetOpenArgs& OpenArgs);
@@ -25,7 +25,7 @@ public:
 	virtual FString GetWorldCentricTabPrefix() const override { return "My Custom Asset Editor3"; }
 	virtual FLinearColor GetWorldCentricTabColorScale() const override { return {}; }
 	virtual void OnClose() override;
-	// FAssetEditorToolkit End
+	// FAssetEditorToolkit End		
 
 private:
 	void SyncGraphToAsset();

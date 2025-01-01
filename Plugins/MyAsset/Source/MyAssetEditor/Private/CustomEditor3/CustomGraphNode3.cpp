@@ -28,10 +28,11 @@ void UCustomGraphNode3::GetNodeContextMenuActions(UToolMenu* Menu, UGraphNodeCon
 	    FSlateIcon(FResourceManager::StyleSetName, FResourceManager::CustomAsset3Editor_AddNodePin),
         FUIAction(
         	FExecuteAction::CreateLambda([Node] {
-        		UEdGraphPin* P = Node->CreateCustomPin(EGPD_Output, FName(TEXT("Outputs")));
-				P->PinToolTip = FString("Another Output Pin");        		
-        		Node->GetGraph()->NotifyGraphChanged();
         		Node->GetGraph()->Modify();
+        		UEdGraphPin* P = Node->CreateCustomPin(EGPD_Output, FName(TEXT("Outputs")));
+				P->PinToolTip = FString("Another Output Pin");
+        		Node->GetGraph()->PostEditChange();
+        		Node->GetGraph()->NotifyGraphChanged();
 			})
     ));
 
@@ -46,10 +47,12 @@ void UCustomGraphNode3::GetNodeContextMenuActions(UToolMenu* Menu, UGraphNodeCon
 				{
 					if (UEdGraphPin* P = Node->Pins.Last(); P->Direction == EGPD_Output)
 					{
+						Node->GetGraph()->Modify();
 						P->BreakAllPinLinks();
 						Node->RemovePin(P);
+						Node->GetGraph()->PostEditChange();
+						
 						Node->GetGraph()->NotifyGraphChanged();
-						Node->GetGraph()->Modify();
 					}					
 				}
 			})
@@ -61,11 +64,11 @@ void UCustomGraphNode3::GetNodeContextMenuActions(UToolMenu* Menu, UGraphNodeCon
 		FText::FromString("Delete the node"),
 		FSlateIcon(FResourceManager::StyleSetName, FResourceManager::CustomAsset3Editor_DeleteNode),
 		FUIAction(
-			FExecuteAction::CreateLambda([Node] {
+			FExecuteAction::CreateLambda([Node] {				
 				UEdGraph* ParentGraph = Node->GetGraph();
-				ParentGraph->RemoveNode(Node);
-				ParentGraph->NotifyGraphChanged();
 				ParentGraph->Modify();
+				ParentGraph->RemoveNode(Node);
+				ParentGraph->PostEditChange();				
 			})
 	));
 }

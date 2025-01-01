@@ -29,14 +29,8 @@ void FMyCustomAsset3EditorToolkit::InitEditor(const FAssetOpenArgs& OpenArgs)
 		UCustomGraphSchema3::StaticClass()
 	);
 
-	SyncAssetToGraph();
-	Graph->AddOnGraphChangedHandler(FOnGraphChanged::FDelegate::CreateLambda(
-		[this] (const FEdGraphEditAction& Action)
-		{
-			this->SyncGraphToAsset();
-		}		
-	));
-
+	#pragma region Create Layout
+	
 	const TSharedRef<FTabManager::FLayout> Layout = FTabManager::NewLayout(MY_CUSTOM_ASSET3_LAYOUT)
 	->AddArea
 	(
@@ -67,8 +61,18 @@ void FMyCustomAsset3EditorToolkit::InitEditor(const FAssetOpenArgs& OpenArgs)
 		)
 	);
 
+	#pragma endregion
+
 	const TArray<UObject*> InObjectsArray = { Asset };
 	InitAssetEditor(EToolkitMode::Standalone, OpenArgs.ToolkitHost, FName("MyCustomAsset3Editor"), Layout, true, true, InObjectsArray);
+
+	SyncAssetToGraph();
+	Graph->AddOnGraphChangedHandler(FOnGraphChanged::FDelegate::CreateLambda(
+		[this] (const FEdGraphEditAction& Action)
+		{
+			this->SyncGraphToAsset();
+		}		
+	));
 }
 
 void FMyCustomAsset3EditorToolkit::RegisterTabSpawners(const TSharedRef<FTabManager>& InTabManager)
@@ -120,7 +124,7 @@ void FMyCustomAsset3EditorToolkit::SyncGraphToAsset()
 
 	if (Asset->RuntimeGraph == nullptr)
 	{
-		Asset->RuntimeGraph = NewObject<UCustomRuntimeGraph3>();
+		Asset->RuntimeGraph = NewObject<UCustomRuntimeGraph3>(Asset);
 	}
 	
 	FCustomGraphOperations3::UIGraphToRuntimeGraph(Graph, Asset->RuntimeGraph);	

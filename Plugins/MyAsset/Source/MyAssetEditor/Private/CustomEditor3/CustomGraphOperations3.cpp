@@ -63,12 +63,12 @@ void FCustomGraphOperations3::UIGraphToRuntimeGraph(const UEdGraph *InUIGraph, U
 
 	for (UEdGraphNode *UiNode : InUIGraph->Nodes)
 	{
-		UCustomRuntimeNode3 *RuntimeNode = NewObject<UCustomRuntimeNode3>();
+		UCustomRuntimeNode3 *RuntimeNode = NewObject<UCustomRuntimeNode3>(InRuntimeGraph);
 		RuntimeNode->Position = FVector2d(UiNode->NodePosX, UiNode->NodePosY);
 
 		for (UEdGraphPin *UiPin: UiNode->Pins)
 		{
-			UCustomRuntimePin3 *RuntimePin = NewObject<UCustomRuntimePin3>();
+			UCustomRuntimePin3 *RuntimePin = NewObject<UCustomRuntimePin3>(RuntimeNode);
 			RuntimePin->Name = UiPin->PinName;
 			RuntimePin->Id = UiPin->PinId;
 
