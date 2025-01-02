@@ -2,6 +2,8 @@
 
 #include "ResouceManager.h"
 
+#define LOCTEXT_NAMESPACE "UCustomGraphNode3"
+
 FText UCustomGraphNode3::GetNodeTitle(ENodeTitleType::Type TitleType) const
 {
 	return FText::FromString(TEXT("My Node Title"));
@@ -28,10 +30,12 @@ void UCustomGraphNode3::GetNodeContextMenuActions(UToolMenu* Menu, UGraphNodeCon
 	    FSlateIcon(FResourceManager::StyleSetName, FResourceManager::CustomAsset3Editor_AddNodePin),
         FUIAction(
         	FExecuteAction::CreateLambda([Node] {
+        		const FScopedTransaction Transaction(LOCTEXT("AddPin", "Add Pin"));
+
         		Node->GetGraph()->Modify();
+        		Node->Modify();
         		UEdGraphPin* P = Node->CreateCustomPin(EGPD_Output, FName(TEXT("Outputs")));
 				P->PinToolTip = FString("Another Output Pin");
-        		Node->GetGraph()->PostEditChange();
         		Node->GetGraph()->NotifyGraphChanged();
 			})
     ));
@@ -47,10 +51,12 @@ void UCustomGraphNode3::GetNodeContextMenuActions(UToolMenu* Menu, UGraphNodeCon
 				{
 					if (UEdGraphPin* P = Node->Pins.Last(); P->Direction == EGPD_Output)
 					{
+						const FScopedTransaction Transaction(LOCTEXT("DeletePin", "Delete Pin"));
+
 						Node->GetGraph()->Modify();
+						Node->Modify();
 						P->BreakAllPinLinks();
 						Node->RemovePin(P);
-						Node->GetGraph()->PostEditChange();
 						
 						Node->GetGraph()->NotifyGraphChanged();
 					}					
@@ -64,11 +70,13 @@ void UCustomGraphNode3::GetNodeContextMenuActions(UToolMenu* Menu, UGraphNodeCon
 		FText::FromString("Delete the node"),
 		FSlateIcon(FResourceManager::StyleSetName, FResourceManager::CustomAsset3Editor_DeleteNode),
 		FUIAction(
-			FExecuteAction::CreateLambda([Node] {				
+			FExecuteAction::CreateLambda([Node] {
+				const FScopedTransaction Transaction(LOCTEXT("DeleteNode", "Delete Node"));
+				
 				UEdGraph* ParentGraph = Node->GetGraph();
 				ParentGraph->Modify();
+				Node->BreakAllNodeLinks();				
 				ParentGraph->RemoveNode(Node);
-				ParentGraph->PostEditChange();				
 			})
 	));
 }
@@ -85,3 +93,5 @@ UEdGraphPin* UCustomGraphNode3::CreateCustomPin(const EEdGraphPinDirection Dir, 
 
 	return NewPin;
 }
+
+#undef LOCTEXT_NAMESPACE

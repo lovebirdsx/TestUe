@@ -7,10 +7,16 @@
 #include "CustomEditor3/SMyCustomAsset3DetailWindow.h"
 #include "CustomEditor3/SMyCustomAsset3EditorWindow.h"
 #include "Kismet2/BlueprintEditorUtils.h"
+#include "Misc/TransactionObjectEvent.h"
 
 #define MY_CUSTOM_ASSET3_LAYOUT "MyCustomAsset3EditorLayout"
 #define MY_CUSTOM_ASSET3_EDITOR_TAB "MyCustomAsset3EditorTab"
 #define MY_CUSTOM_ASSET3_DETAILS_TAB "MyCustomAsset3DetailsTab"
+
+FMyCustomAsset3EditorToolkit::~FMyCustomAsset3EditorToolkit()
+{
+	UE_LOG(LogTemp, Warning, TEXT("FMyCustomAsset3EditorToolkit::~FMyCustomAsset3EditorToolkit"));
+}
 
 void FMyCustomAsset3EditorToolkit::InitEditor(const FAssetOpenArgs& OpenArgs)
 {
@@ -73,6 +79,8 @@ void FMyCustomAsset3EditorToolkit::InitEditor(const FAssetOpenArgs& OpenArgs)
 			this->SyncGraphToAsset();
 		}		
 	));
+
+	GEditor->RegisterForUndo(this);
 }
 
 void FMyCustomAsset3EditorToolkit::RegisterTabSpawners(const TSharedRef<FTabManager>& InTabManager)
@@ -113,6 +121,37 @@ void FMyCustomAsset3EditorToolkit::UnregisterTabSpawners(const TSharedRef<FTabMa
 void FMyCustomAsset3EditorToolkit::OnClose()
 {
 	SyncGraphToAsset();
+
+	GEditor->UnregisterForUndo(this);
+}
+
+bool FMyCustomAsset3EditorToolkit::MatchesContext(const FTransactionContext& InContext, const TArray<TPair<UObject*, FTransactionObjectEvent>>& TransactionObjectContexts) const
+{
+	for (const TPair<UObject*, FTransactionObjectEvent>& TransactionObjectContext : TransactionObjectContexts)
+	{
+		if (TransactionObjectContext.Key == Graph)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+void FMyCustomAsset3EditorToolkit::PostUndo(bool bSuccess)
+{
+	if (this->Graph)
+	{
+		this->Graph->NotifyGraphChanged();
+	}
+}
+
+void FMyCustomAsset3EditorToolkit::PostRedo(bool bSuccess)
+{
+	if (this->Graph)
+	{
+		this->Graph->NotifyGraphChanged();
+	}
 }
 
 void FMyCustomAsset3EditorToolkit::SyncGraphToAsset()

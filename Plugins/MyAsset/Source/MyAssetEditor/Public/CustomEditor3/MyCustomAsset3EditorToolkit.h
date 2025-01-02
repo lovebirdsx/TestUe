@@ -9,7 +9,9 @@ class UMyCustomAsset3;
 class FMyCustomAsset3EditorToolkit : public FAssetEditorToolkit, public IMyCustomAsset3EditorState3, public FEditorUndoClient
 {
 public:
-	void InitEditor(const FAssetOpenArgs& OpenArgs);
+	virtual ~FMyCustomAsset3EditorToolkit() override;
+	
+	void InitEditor(const FAssetOpenArgs& OpenArgs);	
 
 	// IMyCustomAsset3EditorState3 Begin
 	virtual UMyCustomAsset3* GetAsset() override { return Asset; }
@@ -25,7 +27,13 @@ public:
 	virtual FString GetWorldCentricTabPrefix() const override { return "My Custom Asset Editor3"; }
 	virtual FLinearColor GetWorldCentricTabColorScale() const override { return {}; }
 	virtual void OnClose() override;
-	// FAssetEditorToolkit End		
+	// FAssetEditorToolkit End
+
+	// FEditorUndoClient Begin
+	virtual bool MatchesContext(const FTransactionContext& InContext, const TArray<TPair<UObject*, FTransactionObjectEvent>>& TransactionObjectContexts) const override;
+	virtual void PostUndo(bool bSuccess) override;
+	virtual void PostRedo(bool bSuccess) override;
+	// FEditorUndoClient End
 
 private:
 	void SyncGraphToAsset();

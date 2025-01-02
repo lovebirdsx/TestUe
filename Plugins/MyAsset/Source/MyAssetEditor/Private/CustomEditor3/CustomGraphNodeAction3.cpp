@@ -1,8 +1,14 @@
 ﻿#include "CustomEditor3/CustomGraphNodeAction3.h"
 #include "CustomEditor3/CustomGraphNode3.h"
 
+#define LOCTEXT_NAMESPACE "FNewNodeAction3"
+
 UEdGraphNode* FNewNodeAction3::PerformAction(UEdGraph* ParentGraph, UEdGraphPin* FromPin, const FVector2D Location, bool bSelectNewNode)
 {
+	FScopedTransaction Transaction(LOCTEXT("AddCustomNode", "Add Custom Node"));
+
+	ParentGraph->Modify();
+	
 	UCustomGraphNode3* N = NewObject<UCustomGraphNode3>(ParentGraph);
 	N->CreateNewGuid();
 	N->NodePosX = Location.X;
@@ -16,9 +22,10 @@ UEdGraphNode* FNewNodeAction3::PerformAction(UEdGraph* ParentGraph, UEdGraphPin*
 	{
 		N->GetSchema()->TryCreateConnection(FromPin, InputPin);
 	}
-
-	ParentGraph->Modify();
+	
 	ParentGraph->AddNode(N, true, true);
 	
 	return N;
 }
+
+#undef LOCTEXT_NAMESPACE

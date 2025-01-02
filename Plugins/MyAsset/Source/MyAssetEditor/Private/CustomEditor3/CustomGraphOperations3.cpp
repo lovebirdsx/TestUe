@@ -94,6 +94,11 @@ void FCustomGraphOperations3::UIGraphToRuntimeGraph(const UEdGraph *InUIGraph, U
 
 	for (const auto & [first, second] : Connections)
 	{
+		if (!IdToPinMap.Contains(first) || !IdToPinMap.Contains(second))
+		{
+			continue;
+		}
+		
 		UCustomRuntimePin3 *FromPin = IdToPinMap[first];
 		UCustomRuntimePin3 *ToPin = IdToPinMap[second];
 		FromPin->ConnectedTo = ToPin;

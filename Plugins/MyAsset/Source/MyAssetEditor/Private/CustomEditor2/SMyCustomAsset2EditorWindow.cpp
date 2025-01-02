@@ -98,8 +98,7 @@ void SMyCustomAsset2EditorWindow::OnAssetValueCommitted(const int Value, ETextCo
 
     const FScopedTransaction Transaction(LOCTEXT("ChangeAssetValue", "Change Asset Value"));
     Asset->Modify();
-    Asset->AssetValue = Value;
-    Asset->PostEditChange();
+    Asset->AssetValue = Value;    
 }
 
 bool SMyCustomAsset2EditorWindow::OnAssetNameChanged(const FText& Text, FText& Text1)
@@ -111,8 +110,7 @@ bool SMyCustomAsset2EditorWindow::OnAssetNameChanged(const FText& Text, FText& T
 
     const FScopedTransaction Transaction(LOCTEXT("ChangeAssetName", "Change Asset Name"));
     Asset->Modify();
-    Asset->AssetName = Text.ToString();
-    Asset->PostEditChange();
+    Asset->AssetName = Text.ToString();    
 
     return true;
 }
