@@ -16,10 +16,19 @@ async function build() {
     });
 }
 
+async function buildConsolePrograme() {
+    await execUnrealTool({
+        type: 'unrealBuildTool',
+        args: ['MyConsoleProgram', 'Win64', 'Development', `-Project="${uproject}"`],
+        logPrefix: '[build-cp] ',
+        workingDir,
+    });
+}
+
 async function test() {
     await execUnrealTool({
         type: 'unrealEditor',
-        args: [`"${uproject}"`, '-execcmds="Automation RunTests StartsWith:TestUe.; Quit"', '-unattended', '-stdout', '-NOSPLASH', '-NullRHI'],
+        args: [`"${uproject}"`, '-execcmds="Automation RunTests StartsWith:TestUe.; Quit"', '-unattended', '-stdout', '-nopause', '-nosound', '-NOSPLASH', '-NullRHI'],
         logPrefix: '[test] ',
         workingDir,
     });
@@ -35,6 +44,8 @@ async function clean() {
 }
 
 gulp.task('build', build);
+
+gulp.task('build-cp', buildConsolePrograme);
 
 gulp.task('test', async () => {
     await build();
