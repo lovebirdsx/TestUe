@@ -9,6 +9,8 @@ class MYASSETEDITOR_API UCustomGraphNode3 : public UEdGraphNode
 	GENERATED_BODY()
 	
 public:
+	UCustomGraphNode3();	
+	
 	virtual FText GetNodeTitle(ENodeTitleType::Type TitleType) const override;
 	virtual FLinearColor GetNodeTitleColor() const override;
 	virtual bool CanUserDeleteNode() const override;

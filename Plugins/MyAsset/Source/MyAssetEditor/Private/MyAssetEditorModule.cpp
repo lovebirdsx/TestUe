@@ -3,7 +3,7 @@
 #include "MyCustomAsset.h"
 #include "CustomEditor1/MyCustomAssetDetails.h"
 #include "ResouceManager.h"
-#include "CustomEditor3/CustomGraphPin3.h"
+#include "CustomEditor3/SCustomGraphPin3.h"
 
 #define LOCTEXT_NAMESPACE "FMyAssetEditorModule"
 

@@ -4,6 +4,12 @@
 
 #define LOCTEXT_NAMESPACE "UCustomGraphNode3"
 
+
+UCustomGraphNode3::UCustomGraphNode3()
+{	
+	SetFlags(RF_Transactional);
+}
+
 FText UCustomGraphNode3::GetNodeTitle(ENodeTitleType::Type TitleType) const
 {
 	return FText::FromString(TEXT("My Node Title"));
@@ -33,7 +39,6 @@ void UCustomGraphNode3::GetNodeContextMenuActions(UToolMenu* Menu, UGraphNodeCon
         		const FScopedTransaction Transaction(LOCTEXT("AddPin", "Add Pin"));
 
         		Node->GetGraph()->Modify();
-        		Node->Modify();
         		UEdGraphPin* P = Node->CreateCustomPin(EGPD_Output, FName(TEXT("Outputs")));
 				P->PinToolTip = FString("Another Output Pin");
         		Node->GetGraph()->NotifyGraphChanged();
@@ -54,7 +59,6 @@ void UCustomGraphNode3::GetNodeContextMenuActions(UToolMenu* Menu, UGraphNodeCon
 						const FScopedTransaction Transaction(LOCTEXT("DeletePin", "Delete Pin"));
 
 						Node->GetGraph()->Modify();
-						Node->Modify();
 						P->BreakAllPinLinks();
 						Node->RemovePin(P);
 						

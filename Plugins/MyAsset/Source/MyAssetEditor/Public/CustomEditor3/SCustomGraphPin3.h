@@ -3,9 +3,9 @@
 #include "EdGraphUtilities.h"
 #include "SGraphPin.h"
 
-class SCustomGraphPin3 : public SGraphPin
+class SSCustomGraphPin3 : public SGraphPin
 {
-	SLATE_BEGIN_ARGS(SCustomGraphPin3) {}		
+	SLATE_BEGIN_ARGS(SSCustomGraphPin3) {}		
 	SLATE_END_ARGS()
 
 	void Construct(const FArguments& InArgs, UEdGraphPin* InPin)
