@@ -18,6 +18,7 @@ public class TestUe : ModuleRules
             "GameplayAbilities",
             "GameplayTags",
             "GameplayTasks",
+            "UnrealEd",
         });		
 
 		// Uncomment if you are using Slate UI

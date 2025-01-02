@@ -13,7 +13,7 @@ public:
 	static int32 FreeCount;
 	static int32 NewCount;
 	
-	UMyObject(): PlayerLocation(), PlayerHealth(0) { NewCount++; }
+	UMyObject();
 	virtual ~UMyObject() override { FreeCount++; }
 	
 	UPROPERTY()
@@ -22,7 +22,14 @@ public:
 	UPROPERTY()
 	int32 PlayerHealth;
 
+	UPROPERTY()
+	TArray<int32> NumbersProperty;
+
+	TArray<int32> Numbers;
+
 	int32 SelfSerialNumber = 0;
+
+	int32 NormalNumber = 0;
 
 	virtual void Serialize(FArchive& Ar) override;
 };
