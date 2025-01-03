@@ -1,11 +1,12 @@
 import * as gulp from 'gulp';
 import * as path from 'path';
 
-import { execUnrealTool } from '../common/unrealTool';
+import { associateUnrealBuildInRegistry, execUnrealTool, getUnrealEnginePath } from '../common/unrealTool';
 import { cleanDir } from '../common/util';
 
 const workingDir = path.resolve(__dirname, '../../..');
 const uproject = path.join(workingDir, 'TestUe.uproject');
+const UNREAL_BUILD_GUID = 'UE5.5-Souce';
 
 async function build() {
     await execUnrealTool({
@@ -42,6 +43,10 @@ async function clean() {
     cleanDir(path.join(workingDir, 'Saved'));
     cleanDir(path.join(workingDir, 'DerivedDataCache'));
 }
+
+gulp.task('set-guid', async () => {
+    associateUnrealBuildInRegistry(getUnrealEnginePath(), UNREAL_BUILD_GUID);
+});
 
 gulp.task('build', build);
 

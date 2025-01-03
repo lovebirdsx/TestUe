@@ -1,20 +1,39 @@
 import * as fs from "fs";
+import * as path from 'path';
+import * as WinReg from 'winreg';
+
 import { exec } from "./exec";
 import { red } from "./util";
 
 const INSTALL_PATHS = [
+    "F:/UE_5.5_Source",
+    "E:/UE_5.5_Source",
     "E:/UE_5.5",
     "F:/UE_5.5",
 ]
 
-function getVaildUnrealTool(tool: string): string {
+let unrealEnginePath: string | undefined;
+
+/**
+ * 获得 Unreal Engine 的安装路径
+ */
+export function getUnrealEnginePath(): string {
+    if (unrealEnginePath) {
+        return unrealEnginePath;
+    }
+
     for (const path of INSTALL_PATHS) {
-        const toolPath = `${path}/${tool}`;
-        if (fs.existsSync(toolPath)) {
-            return toolPath;
+        if (fs.existsSync(path)) {
+            unrealEnginePath = path;
+            return path;
         }
     }
-    throw new Error(`Cannot find valid Unreal tool: ${tool}`);
+    throw new Error("Cannot find valid Unreal Engine path");
+}
+
+function getVaildUnrealTool(tool: string): string {
+    const enginePath = getUnrealEnginePath();
+    return path.join(enginePath, tool);
 }
 
 const TOOLS = {
@@ -66,5 +85,39 @@ export async function execUnrealTool(options: IExecUnrealToolOptions): Promise<v
         workingDir: options.workingDir,
         formatText: formatUnrealOutput,
         verbose: options.verbose,
+    });
+}
+
+/**
+ * 使用提供的 GUID 将 Unreal Engine 构建与系统注册表关联。
+ *
+ * @param engineDir - Unreal Engine 的源码目录
+ * @param guid - Unreal Engine 构建的唯一标识符
+ */
+export async function associateUnrealBuildInRegistry(engineDir: string, guid: string): Promise<void> {
+    const enginePathNormed = path.normalize(engineDir);
+
+    const regKey = new WinReg({
+        hive: WinReg.HKCU,
+        key: '\\Software\\Epic Games\\Unreal Engine\\Builds'
+    });
+
+    const items = await new Promise<WinReg.RegistryItem[]>((resolve, reject) => {
+        regKey.values((err, result) => {
+            if (err) reject(err);
+            else resolve(result);
+        });
+    });
+
+    for (const item of items) {
+        if (path.normalize(item.value) === enginePathNormed) {
+            await new Promise<void>((resolve, reject) => {
+                regKey.remove(item.name, err => (err ? reject(err) : resolve()));
+            });
+        }
+    }
+
+    await new Promise<void>((resolve, reject) => {
+        regKey.set(guid, WinReg.REG_SZ, engineDir, err => (err ? reject(err) : resolve()));
     });
 }

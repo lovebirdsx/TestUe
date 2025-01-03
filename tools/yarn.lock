@@ -690,6 +690,11 @@
     "@types/expect" "^1.20.4"
     "@types/node" "*"
 
+"@types/winreg@^1.2.36":
+  version "1.2.36"
+  resolved "https://registry.npmmirror.com/@types/winreg/-/winreg-1.2.36.tgz#f1d9a9918cae90a63c6106c98224aca6a36983fc"
+  integrity sha512-DtafHy5A8hbaosXrbr7YdjQZaqVewXmiasRS5J4tYMzt3s1gkh40ixpxgVFfKiQ0JIYetTJABat47v9cpr/sQg==
+
 "@types/yargs-parser@*":
   version "21.0.3"
   resolved "https://registry.npmmirror.com/@types/yargs-parser/-/yargs-parser-21.0.3.tgz#815e30b786d2e8f0dcd85fd5bcf5e1a04d008f15"
@@ -2914,6 +2919,11 @@ which@^2.0.1:
   integrity sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==
   dependencies:
     isexe "^2.0.0"
+
+winreg@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.npmmirror.com/winreg/-/winreg-1.2.5.tgz#b650383e89278952494b5d113ba049a5a4fa96d8"
+  integrity sha512-uf7tHf+tw0B1y+x+mKTLHkykBgK2KMs3g+KlzmyMbLvICSHQyB/xOFjTT8qZ3oeTFyU7Bbj4FzXitGG6jvKhYw==
 
 wrap-ansi@^7.0.0:
   version "7.0.0"

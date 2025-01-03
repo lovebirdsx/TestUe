@@ -1,22 +1,36 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getUnrealEnginePath = getUnrealEnginePath;
 exports.getToolPath = getToolPath;
 exports.execUnrealTool = execUnrealTool;
+exports.associateUnrealBuildInRegistry = associateUnrealBuildInRegistry;
 const fs = require("fs");
+const path = require("path");
+const WinReg = require("winreg");
 const exec_1 = require("./exec");
 const util_1 = require("./util");
 const INSTALL_PATHS = [
+    "F:/UE_5.5_Source",
+    "E:/UE_5.5_Source",
     "E:/UE_5.5",
     "F:/UE_5.5",
 ];
-function getVaildUnrealTool(tool) {
+let unrealEnginePath;
+function getUnrealEnginePath() {
+    if (unrealEnginePath) {
+        return unrealEnginePath;
+    }
     for (const path of INSTALL_PATHS) {
-        const toolPath = `${path}/${tool}`;
-        if (fs.existsSync(toolPath)) {
-            return toolPath;
+        if (fs.existsSync(path)) {
+            unrealEnginePath = path;
+            return path;
         }
     }
-    throw new Error(`Cannot find valid Unreal tool: ${tool}`);
+    throw new Error("Cannot find valid Unreal Engine path");
+}
+function getVaildUnrealTool(tool) {
+    const enginePath = getUnrealEnginePath();
+    return path.join(enginePath, tool);
 }
 const TOOLS = {
     unrealBuildTool: "Engine/Binaries/DotNET/UnrealBuildTool/UnrealBuildTool.exe",
@@ -52,6 +66,31 @@ async function execUnrealTool(options) {
         workingDir: options.workingDir,
         formatText: formatUnrealOutput,
         verbose: options.verbose,
+    });
+}
+async function associateUnrealBuildInRegistry(engineDir, guid) {
+    const enginePathNormed = path.normalize(engineDir);
+    const regKey = new WinReg({
+        hive: WinReg.HKCU,
+        key: '\\Software\\Epic Games\\Unreal Engine\\Builds'
+    });
+    const items = await new Promise((resolve, reject) => {
+        regKey.values((err, result) => {
+            if (err)
+                reject(err);
+            else
+                resolve(result);
+        });
+    });
+    for (const item of items) {
+        if (path.normalize(item.value) === enginePathNormed) {
+            await new Promise((resolve, reject) => {
+                regKey.remove(item.name, err => (err ? reject(err) : resolve()));
+            });
+        }
+    }
+    await new Promise((resolve, reject) => {
+        regKey.set(guid, WinReg.REG_SZ, engineDir, err => (err ? reject(err) : resolve()));
     });
 }
 //# sourceMappingURL=unrealTool.js.map
