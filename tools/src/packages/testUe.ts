@@ -1,5 +1,6 @@
 import * as gulp from 'gulp';
 import * as path from 'path';
+import * as fs from 'fs';
 
 import { associateUnrealBuildInRegistry, execUnrealTool, getUnrealEnginePath } from '../common/unrealTool';
 import { cleanDir } from '../common/util';
@@ -36,12 +37,20 @@ async function test() {
 }
 
 async function clean() {
-    cleanDir(path.join(workingDir, 'node_modules'));
-    cleanDir(path.join(workingDir, 'tools', 'node_modules'));
     cleanDir(path.join(workingDir, 'Binaries'));
     cleanDir(path.join(workingDir, 'Intermediate'));
     cleanDir(path.join(workingDir, 'Saved'));
     cleanDir(path.join(workingDir, 'DerivedDataCache'));
+
+    const pluginsDir = path.join(workingDir, 'Plugins');
+    if (fs.existsSync(pluginsDir)) {
+        fs.readdirSync(pluginsDir).forEach((plugin) => {
+            cleanDir(path.join(pluginsDir, plugin, 'Binaries'));
+            cleanDir(path.join(pluginsDir, plugin, 'Intermediate'));
+            cleanDir(path.join(pluginsDir, plugin, 'Saved'));
+            cleanDir(path.join(pluginsDir, plugin, 'DerivedDataCache'));
+        });
+    }
 }
 
 gulp.task('set-guid', async () => {

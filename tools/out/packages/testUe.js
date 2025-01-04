@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const gulp = require("gulp");
 const path = require("path");
+const fs = require("fs");
 const unrealTool_1 = require("../common/unrealTool");
 const util_1 = require("../common/util");
 const workingDir = path.resolve(__dirname, '../../..');
@@ -32,12 +33,19 @@ async function test() {
     });
 }
 async function clean() {
-    (0, util_1.cleanDir)(path.join(workingDir, 'node_modules'));
-    (0, util_1.cleanDir)(path.join(workingDir, 'tools', 'node_modules'));
     (0, util_1.cleanDir)(path.join(workingDir, 'Binaries'));
     (0, util_1.cleanDir)(path.join(workingDir, 'Intermediate'));
     (0, util_1.cleanDir)(path.join(workingDir, 'Saved'));
     (0, util_1.cleanDir)(path.join(workingDir, 'DerivedDataCache'));
+    const pluginsDir = path.join(workingDir, 'Plugins');
+    if (fs.existsSync(pluginsDir)) {
+        fs.readdirSync(pluginsDir).forEach((plugin) => {
+            (0, util_1.cleanDir)(path.join(pluginsDir, plugin, 'Binaries'));
+            (0, util_1.cleanDir)(path.join(pluginsDir, plugin, 'Intermediate'));
+            (0, util_1.cleanDir)(path.join(pluginsDir, plugin, 'Saved'));
+            (0, util_1.cleanDir)(path.join(pluginsDir, plugin, 'DerivedDataCache'));
+        });
+    }
 }
 gulp.task('set-guid', async () => {
     (0, unrealTool_1.associateUnrealBuildInRegistry)((0, unrealTool_1.getUnrealEnginePath)(), UNREAL_BUILD_GUID);

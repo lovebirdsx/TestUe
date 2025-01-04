@@ -12,7 +12,7 @@
     "clean": "gulp clean",
     "tool:test": "jest",
     "tool:build": "tsc",
-    "tool:build:watch": "tsc -w",
+    "tool:watch": "tsc -w",
     "tool:test:watch": "jest --watch",
     "tool:lint": "eslint --ext .ts,.tsx ."
   },
