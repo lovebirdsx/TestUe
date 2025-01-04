@@ -1,6 +1,7 @@
-﻿#include "Misc/AutomationTest.h"
+﻿#include "MyTest.h"
+#include "Misc/AutomationTest.h"
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(Cpp_Constructor, "TestUe.Cpp.Constructor", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(Cpp_Constructor, "MyTest.Cpp.Constructor", TEST_FILTER)
 
 int32 G_BaseConstructCallCount = 0;
 int32 G_BaseDestructCallCount = 0;

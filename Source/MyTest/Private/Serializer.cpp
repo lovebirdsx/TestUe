@@ -1,7 +1,10 @@
-﻿#include "MyObject.h"
+﻿#include "MemoryReader.h"
+#include "MemoryWriter.h"
+#include "MyTest.h"
+#include "MyObject.h"
 #include "Misc/AutomationTest.h"
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(Serializer_Base, "TestUe.Serializer.Base", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(Serializer_Base, "MyTest.Serializer.Base", TEST_FILTER)
 
 bool Serializer_Base::RunTest(const FString& Parameters)
 {
@@ -33,7 +36,7 @@ bool Serializer_Base::RunTest(const FString& Parameters)
 	return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(Serializer_Custom, "TestUe.Serializer.Custom", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(Serializer_Custom, "MyTest.Serializer.Custom", TEST_FILTER)
 
 bool Serializer_Custom::RunTest(const FString& Parameters)
 {		

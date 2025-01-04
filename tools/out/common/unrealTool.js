@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUnrealEnginePath = getUnrealEnginePath;
 exports.getToolPath = getToolPath;
+exports.formatUnrealOutput = formatUnrealOutput;
 exports.execUnrealTool = execUnrealTool;
 exports.associateUnrealBuildInRegistry = associateUnrealBuildInRegistry;
 const fs = require("fs");
@@ -38,6 +39,7 @@ const TOOLS = {
     unrealEditor: "Engine/Binaries/Win64/UnrealEditor.exe",
     build: "Engine/Build/BatchFiles/Build.bat",
     runuat: "Engine/Build/BatchFiles/RunUAT.bat",
+    generateProjectFiles: "Engine/Build/BatchFiles/GenerateProjectFiles.bat",
 };
 const toolPaths = {};
 function getToolPath(tool) {

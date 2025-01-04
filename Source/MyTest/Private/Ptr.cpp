@@ -1,6 +1,7 @@
-﻿#include "Misc/AutomationTest.h"
+﻿#include "MyTest.h"
+#include "Misc/AutomationTest.h"
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestPtr_SharedRef, "TestUe.Ptr.SharedRef", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestPtr_SharedRef, "MyTest.Ptr.SharedRef", TEST_FILTER)
 
 bool TestPtr_SharedRef::RunTest(const FString& Parameters)
 {
@@ -30,7 +31,7 @@ bool TestPtr_SharedRef::RunTest(const FString& Parameters)
 	return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestPtr_SharedPtr, "TestUe.Ptr.SharedPtr", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestPtr_SharedPtr, "MyTest.Ptr.SharedPtr", TEST_FILTER)
 
 int GFTestFreeCount = 0;
 
@@ -93,7 +94,7 @@ bool TestPtr_SharedPtr::RunTest(const FString& Parameters)
 	return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestPtr_WeakPtr, "TestUe.Ptr.WeakPtr", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestPtr_WeakPtr, "MyTest.Ptr.WeakPtr", TEST_FILTER)
 
 bool TestPtr_WeakPtr::RunTest(const FString& Parameters)
 {
@@ -128,7 +129,7 @@ bool TestPtr_WeakPtr::RunTest(const FString& Parameters)
 	return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestPtr_UniquePtr, "TestUe.Ptr.UniquePtr", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestPtr_UniquePtr, "MyTest.Ptr.UniquePtr", TEST_FILTER)
 
 bool TestPtr_UniquePtr::RunTest(const FString& Parameters)
 {
@@ -163,7 +164,7 @@ bool TestPtr_UniquePtr::RunTest(const FString& Parameters)
 	return true;
 }
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestPtr_RefCountPtr, "TestUe.Ptr.RefCountPtr", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestPtr_RefCountPtr, "MyTest.Ptr.RefCountPtr", TEST_FILTER)
 
 bool TestPtr_RefCountPtr::RunTest(const FString& Parameters)
 {

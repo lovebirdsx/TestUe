@@ -42,6 +42,7 @@ const TOOLS = {
     unrealEditor: "Engine/Binaries/Win64/UnrealEditor.exe",
     build: "Engine/Build/BatchFiles/Build.bat",
     runuat: "Engine/Build/BatchFiles/RunUAT.bat",
+    generateProjectFiles: "Engine/Build/BatchFiles/GenerateProjectFiles.bat",
 }
 
 const toolPaths: { [key: string]: string } = {};
@@ -60,7 +61,7 @@ const unrealErrors = [
     "error LNK",
 ]
 
-function formatUnrealOutput(data: string, isError: boolean): string {
+export function formatUnrealOutput(data: string, isError: boolean): string {
     if (unrealErrors.some((error) => data.includes(error))) {
         return red(data);
     }

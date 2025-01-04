@@ -23,10 +23,13 @@ Saved/
 # Ignore project-specific files
 .idea/
 .vs/
+.vscode/
+*.code-workspace
 *.xcodeproj/
 *.xcworkspace/
 *.sln
 *.vsconfig
+*.ignore
 
 # Ignore log files
 *.log
