@@ -59,6 +59,8 @@ export function getToolPath(tool: keyof typeof TOOLS): string {
 const unrealErrors = [
     "LogAutomationController: Error:",
     "error LNK",
+    "error C",
+    "Error:",
 ]
 
 export function formatUnrealOutput(data: string, isError: boolean): string {
