@@ -6,7 +6,7 @@ public class MyTestTarget : TargetRules
     {
         Type = TargetType.Program;
         IncludeOrderVersion = EngineIncludeOrderVersion.Latest;
-        LinkType = TargetLinkType.Monolithic;
+        LinkType = TargetLinkType.Modular;
         LaunchModuleName = "MyTest";
 
         // Lean and mean

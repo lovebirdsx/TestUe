@@ -12,7 +12,7 @@ const UNREAL_BUILD_GUID = 'UE5.5-Souce';
 async function build() {
     await (0, unrealTool_1.execUnrealTool)({
         type: 'build',
-        args: ['TestUeEditor', 'Win64', 'Debug', `-Project="${uproject}"`, '-WaitMutex', '-FromMSBuild'],
+        args: ['TestUeEditor', 'Win64', 'Development', `-Project="${uproject}"`, '-WaitMutex', '-FromMSBuild'],
         logPrefix: '[build] ',
         workingDir,
     });
