@@ -277,3 +277,107 @@ bool Cpp_MoveConstructor::RunTest(const FString& Parameters)
 	
 	return true;
 }
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(Cpp_Template, "MyTest.Cpp.Template", TEST_FILTER)
+
+namespace  
+{
+	template <typename T>
+	T Add(T A, T B)
+	{
+		return A + B;
+	}
+
+	template <typename T>
+	FString ToString(const T& A)
+	{
+		return FString::FromInt(static_cast<int>(A));
+	}
+
+	template<>
+	FString ToString<float>(const float& A)
+	{
+		return FString::Printf(TEXT("f: %f"), A);
+	}
+
+	template <typename T1, typename T2 = double>
+	FString ToString2(const T1 A, const T2 B = 1.0)
+	{
+		return FString::Printf(TEXT("%d, %d"), static_cast<int>(A), static_cast<int>(B));
+	}
+
+	template <typename ... TArgs>
+	FString ToString3(const TArgs& ... Args)
+	{
+		const TArray<FString> StringArray = { ToString(Args)... };
+		return FString::Join(StringArray, TEXT(", "));
+	}
+
+	template <typename T>
+	class TTest
+	{
+	public:
+		explicit TTest(T InValue) : Value(InValue)
+		{
+		}
+
+		explicit TTest(TTest&& InTest) noexcept : Value(MoveTemp(InTest.Value))
+		{			
+		}
+
+		explicit TTest(const TTest& InTest) : Value(InTest.Value)
+		{
+		}
+
+		TTest& operator=(const TTest& InTest)
+		{
+			if (this != &InTest)
+			{
+				Value = InTest.Value;
+			}
+
+			return *this;
+		}
+
+		TTest& operator=(TTest&& InTest)
+		{
+			if (this != &InTest)
+			{
+				Value = MoveTemp(InTest.Value);
+			}
+
+			return *this;
+		}
+
+	private:
+		T Value;
+	};
+}
+
+bool Cpp_Template::RunTest(const FString& Parameters)
+{
+	// 模板基本用法
+	{
+		TestEqual("Add(1, 2) must be 3", Add(1, 2), 3);
+		TestEqual("Add(1.0f, 2.0f) must be 3.0f", Add(1.0f, 2.0f), 3.0f);
+		TestEqual("Add(1.0, 2.0) must be 3.0", Add(1.0, 2.0), 3.0);
+	}
+
+	// 模板特化
+	{
+		TestEqual("ToString(1) must be 1", ToString(1), TEXT("1"));
+		TestEqual("ToString(1.0f) must be f: 1.000000", ToString(1.0f), TEXT("f: 1.000000"));		
+	}
+
+	// 模板默认参数
+	{
+		TestEqual("ToString2(1) must be 1, 1", ToString2(1, 2), TEXT("1, 2"));
+	}
+
+	// 模板可变参数
+	{
+		TestEqual("ToString3(1, 2, 3) must be 1, 2, 3", ToString3(1, 2, 3), TEXT("1, 2, 3"));
+	}	
+
+	return true;
+}
