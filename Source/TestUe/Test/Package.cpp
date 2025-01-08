@@ -16,21 +16,28 @@ bool TestPackage_Load::RunTest(const FString& Parameters)
 		UPackage* Package = CreatePackage(*PackageName);
 		TestNotNull("Package must be valid", Package);
 
-		UMyObject* MyObject = NewObject<UMyObject>(Package, UMyObject::StaticClass(), TEXT("MyObject"), RF_Public | RF_Standalone);
+		UMyObject* MyObject1 = NewObject<UMyObject>(Package, UMyObject::StaticClass(), TEXT("MyObject1"), RF_Public | RF_Standalone);
+		MyObject1->PlayerHealth = 100;
+		UMyObject* MyObject2 = NewObject<UMyObject>(Package, UMyObject::StaticClass(), TEXT("MyObject2"), RF_Public | RF_Standalone);
+		MyObject2->PlayerHealth = 200;
 		Package->SetDirtyFlag(true);
 
 		// 保存
 		FSavePackageArgs SavePackageArgs;
 		SavePackageArgs.TopLevelFlags = RF_Public | RF_Standalone;
 		
-		const FSavePackageResultStruct Result = UPackage::Save(Package, MyObject, *FilePath, SavePackageArgs);
+		const FSavePackageResultStruct Result = UPackage::Save(Package, nullptr, *FilePath, SavePackageArgs);
 
 		TestEqual("Save must be successful", Result.Result, ESavePackageResult::Success);		
 	}	
 
 	// LoadObject
-	const UMyObject* MyObject1 = LoadObject<UMyObject>(nullptr, *(PackageName + TEXT(".MyObject")));
+	const UMyObject* MyObject1 = LoadObject<UMyObject>(nullptr, *(PackageName + TEXT(".MyObject1")));
 	TestNotNull("MyObject1 must be valid", MyObject1);
+	TestEqual("MyObject1's PlayerHealth must be 100", MyObject1->PlayerHealth, 100);
+	const UMyObject* MyObject2 = LoadObject<UMyObject>(nullptr, *(PackageName + TEXT(".MyObject2")));
+	TestNotNull("MyObject2 must be valid", MyObject2);
+	TestEqual("MyObject2's PlayerHealth must be 200", MyObject2->PlayerHealth, 200);
 	
 	// 加载
 	UPackage* Package = LoadPackage(nullptr, *PackageName, LOAD_None);
@@ -40,9 +47,9 @@ bool TestPackage_Load::RunTest(const FString& Parameters)
 	TestTrue("MyObject1's OutermostObject must be Package", MyObject1->GetOutermost() == Package);
 	TestTrue("MyObject1's Package must be Package", MyObject1->GetPackage() == Package);
 	
-	// Package中包含MyObject
-	UMyObject* MyObject2 = FindObject<UMyObject>(Package, TEXT("MyObject"));
-	TestNotNull("MyObject2 must be valid", MyObject2);
+	// Package中包含MyObject	 
+	TestNotNull("MyObject1 must be valid", FindObject<UMyObject>(Package, TEXT("MyObject1")));
+	TestNotNull("MyObject2 must be valid", FindObject<UMyObject>(Package, TEXT("MyObject2")));
 	
 	// 卸载	
 	TArray<UPackage*> PackagesToUnload;
