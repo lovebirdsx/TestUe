@@ -5,6 +5,7 @@ public class MyTestTarget : TargetRules
     public MyTestTarget(TargetInfo Target) : base(Target)
     {
         Type = TargetType.Program;
+        CppStandard = CppStandardVersion.Cpp20;
         IncludeOrderVersion = EngineIncludeOrderVersion.Latest;
         LinkType = TargetLinkType.Modular;
         LaunchModuleName = "MyTest";
