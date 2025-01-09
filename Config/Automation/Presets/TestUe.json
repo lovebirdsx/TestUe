@@ -1,0 +1,13 @@
+{
+	"id": "TestUe",
+	"name": "TestUe",
+	"enabledTests": [
+		"TestUe.Asset.AssetManager",
+		"TestUe.Asset.AssetRegistry",
+		"TestUe.Package.GetAll",
+		"TestUe.Package.Load",
+		"TestUe.Package.Ref",
+		"TestUe.UndoRedo.Base",
+		"TestUe.UndoRedo.EditorUndoClient"
+	]
+}

@@ -4,3 +4,18 @@
 
 #include "CoreMinimal.h"
 
+#include "Modules/ModuleManager.h"
+
+class TESTUE_API FTestUe : public IModuleInterface
+{
+public:
+
+	/** IModuleInterface implementation */
+	virtual void StartupModule() override;
+	virtual void ShutdownModule() override;
+
+private:
+	void OnLiveCodingComplete();
+};
+
+

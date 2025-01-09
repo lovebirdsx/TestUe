@@ -4,7 +4,7 @@
 #include "UObject/Object.h"
 #include "MyObject.generated.h"
 
-UCLASS()
+UCLASS(Blueprintable)
 class TESTUE_API UMyObject : public UObject
 {
 	GENERATED_BODY()
@@ -24,6 +24,9 @@ public:
 
 	UPROPERTY()
 	TArray<int32> NumbersProperty;
+	
+	UPROPERTY()
+	UMyObject* RefObject;
 
 	TArray<int32> Numbers;
 
