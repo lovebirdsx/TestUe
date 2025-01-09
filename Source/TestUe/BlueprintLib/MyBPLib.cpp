@@ -6,6 +6,8 @@
 #include "ILiveCodingModule.h"
 #include "ISessionFrontendModule.h"
 #include "MyEventManager.h"
+#include "PackageTools.h"
+#include "Selection.h"
 
 FString UMyBPLib::GetPackageName(UObject* Object)
 {
@@ -57,6 +59,51 @@ void UMyBPLib::ShowSessionFrontend()
 		FModuleManager::Get().LoadModule("SessionFrontend", ELoadModuleFlags::LogFailures);
 		ShowSessionFrontend();
 	}
+}
+
+void UMyBPLib::UnloadSelectedAssets()
+{
+	if (!GEditor)
+	{
+		UE_LOG(LogTemp, Error, TEXT("GEditor is null."));
+		return;
+	}
+	
+    // 获取当前选中的资产
+	USelection* Selection = GEditor->GetSelectedObjects();
+	if (!Selection)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Selection is null."));
+		return;
+	}
+    
+	TArray<UObject*> SelectedObjects;
+	Selection->GetSelectedObjects<UObject>(SelectedObjects);
+	if (SelectedObjects.Num() == 0)
+	{
+		UE_LOG(LogTemp, Display, TEXT("No asset is selected."));
+		return;
+	}
+	
+	TArray<FString> UnloadedPackageNames;
+    for (const UObject* Asset : SelectedObjects)
+    {
+        if (!Asset || !Asset->IsAsset())
+		{
+			continue;
+		}
+     
+    	UPackage* Package = Asset->GetOutermost();
+    	if (!Package)
+    	{
+    		continue;
+    	}
+    	
+    	UnloadedPackageNames.Add(Package->GetName());
+    	UPackageTools::UnloadPackages({Package});
+    }
+
+	FMessageDialog::Open(EAppMsgType::Ok, FText::FromString(FString::Join(UnloadedPackageNames, TEXT("\n"))));        
 }
 
 UMyEventManager* UMyBPLib::GetEventManager()

@@ -15,6 +15,10 @@ bool TestAsset_AssetManager::RunTest(const FString& Parameters)
 	AssetManager->LoadPrimaryAsset(PrimaryAssetId, {}, FStreamableDelegate::CreateLambda([this, AssetManager, PrimaryAssetId]()
 	{
 		TestNotNull("LoadPrimaryAsset", AssetManager->GetPrimaryAssetObject(PrimaryAssetId));
+		
+		// BP_MyObject1 引用了 BP_MyObject2, 所以 BP_MyObject2 也会被加载
+		const FPrimaryAssetId PrimaryAssetId2 = FPrimaryAssetId("MyObject", "BP_MyObject2");
+		TestNotNull("LoadPrimaryAsset2", AssetManager->GetPrimaryAssetObject(PrimaryAssetId2));
 	}));	
 	
 	return true;

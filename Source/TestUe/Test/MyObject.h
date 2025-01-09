@@ -4,7 +4,7 @@
 #include "UObject/Object.h"
 #include "MyObject.generated.h"
 
-UCLASS(Blueprintable)
+UCLASS(Blueprintable, BlueprintType)
 class TESTUE_API UMyObject : public UObject
 {
 	GENERATED_BODY()
@@ -16,17 +16,20 @@ public:
 	UMyObject();
 	virtual ~UMyObject() override { FreeCount++; }
 	
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
 	FVector3f PlayerLocation;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
 	int32 PlayerHealth;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
 	TArray<int32> NumbersProperty;
 	
-	UPROPERTY()
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
 	UMyObject* RefObject;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
+	TSubclassOf<UMyObject> RefClass;
 
 	TArray<int32> Numbers;
 

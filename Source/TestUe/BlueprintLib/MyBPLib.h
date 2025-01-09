@@ -25,5 +25,8 @@ public:
 	static void ShowSessionFrontend();
 	
 	UFUNCTION(BlueprintCallable, Category = "TestUe")
+	static void UnloadSelectedAssets();
+	
+	UFUNCTION(BlueprintCallable, Category = "TestUe")
 	static UMyEventManager* GetEventManager();
 };
