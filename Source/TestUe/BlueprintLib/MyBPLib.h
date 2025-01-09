@@ -20,6 +20,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "TestUe")
 	static void StartLiveCodingCompile();
+
+	UFUNCTION(BlueprintCallable, Category = "TestUe")
+	static void ShowSessionFrontend();
 	
 	UFUNCTION(BlueprintCallable, Category = "TestUe")
 	static UMyEventManager* GetEventManager();

@@ -4,6 +4,7 @@
 #include "AutomationGroupFilter.h"
 #include "IAutomationControllerModule.h"
 #include "ILiveCodingModule.h"
+#include "ISessionFrontendModule.h"
 #include "MyEventManager.h"
 
 FString UMyBPLib::GetPackageName(UObject* Object)
@@ -41,6 +42,20 @@ void UMyBPLib::StartLiveCodingCompile()
 	{
 		ILiveCodingModule& LiveCoding = FModuleManager::LoadModuleChecked<ILiveCodingModule>("LiveCoding");
 		LiveCoding.Compile(ELiveCodingCompileFlags::WaitForCompletion, nullptr);
+	}
+}
+
+void UMyBPLib::ShowSessionFrontend()
+{
+	if (FModuleManager::Get().IsModuleLoaded("SessionFrontend"))
+	{
+		ISessionFrontendModule& SessionFrontend = FModuleManager::LoadModuleChecked<ISessionFrontendModule>("SessionFrontend");
+		SessionFrontend.InvokeSessionFrontend();
+	}
+	else
+	{
+		FModuleManager::Get().LoadModule("SessionFrontend", ELoadModuleFlags::LogFailures);
+		ShowSessionFrontend();
 	}
 }
 

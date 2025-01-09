@@ -6,7 +6,7 @@ public class TestUe : ModuleRules
 {
 	public TestUe(ReadOnlyTargetRules Target) : base(Target)
 	{
-		PrivateDependencyModuleNames.AddRange(new string[] {"LiveCoding"});
+		PrivateDependencyModuleNames.AddRange(new string[] {"LiveCoding", "SessionFrontend"});
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
 		PublicDependencyModuleNames.AddRange(new string[] 
