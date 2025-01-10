@@ -19,6 +19,9 @@ public:
 	static void StartAutomationTest();
 
 	UFUNCTION(BlueprintCallable, Category = "TestUe")
+	static void StartTestUeTest();
+
+	UFUNCTION(BlueprintCallable, Category = "TestUe")
 	static void StartLiveCodingCompile();
 
 	UFUNCTION(BlueprintCallable, Category = "TestUe")

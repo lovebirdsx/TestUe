@@ -17,6 +17,12 @@ FString UMyBPLib::GetPackageName(UObject* Object)
 void UMyBPLib::StartAutomationTest()
 {	
 	const IAutomationControllerManagerRef AutomationController = FModuleManager::LoadModuleChecked<IAutomationControllerModule>("AutomationController").GetAutomationController();
+	AutomationController->RunTests(true); 
+}
+
+void UMyBPLib::StartTestUeTest()
+{
+	const IAutomationControllerManagerRef AutomationController = FModuleManager::LoadModuleChecked<IAutomationControllerModule>("AutomationController").GetAutomationController();
 
 	AutomationController->Startup();
 

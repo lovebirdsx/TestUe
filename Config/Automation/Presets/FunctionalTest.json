@@ -1,0 +1,8 @@
+{
+	"id": "FunctionalTest",
+	"name": "Functional Test",
+	"enabledTests": [
+		"Project.Functional Tests.MyTest.Maps.FTest_Basic.BP_Test_AssetManager",
+		"Project.Functional Tests.MyTest.Maps.FTest_Basic.BP_Test_AssetRegistry"
+	]
+}

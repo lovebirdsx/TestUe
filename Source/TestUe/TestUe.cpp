@@ -30,5 +30,5 @@ void FTestUe::ShutdownModule()
 
 void FTestUe::OnLiveCodingComplete()
 {
-	UMyBPLib::StartAutomationTest();	
+	UMyBPLib::StartTestUeTest();	
 }
