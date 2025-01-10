@@ -20,17 +20,16 @@ void UMyBPLib::StartAutomationTest()
 	AutomationController->RunTests(true); 
 }
 
-void UMyBPLib::StartTestUeTest()
+void UMyBPLib::StartTestByPrefix(const FString& Prefix)
 {
 	const IAutomationControllerManagerRef AutomationController = FModuleManager::LoadModuleChecked<IAutomationControllerModule>("AutomationController").GetAutomationController();
 
 	AutomationController->Startup();
 
-	// 测试以TestUe.开头的测试用例
 	const TSharedPtr<AutomationFilterCollection> AutomationFilters = MakeShareable(new AutomationFilterCollection());
 	const TSharedPtr<FAutomationGroupFilter> FilterAny = MakeShareable(new FAutomationGroupFilter());
 	TArray<FAutomatedTestFilter> FiltersList;
-	FiltersList.Add(FAutomatedTestFilter(TEXT("TestUe."), true));
+	FiltersList.Add(FAutomatedTestFilter(Prefix, true));
 	FilterAny->SetFilters(FiltersList);
 	
 	AutomationFilters->Add(FilterAny);
@@ -41,7 +40,7 @@ void UMyBPLib::StartTestUeTest()
 
 	UE_LOG(LogTemp, Warning, TEXT("========= Test Count = %d ========="), AutomationController->GetEnabledTestsNum());
 	
-	AutomationController->RunTests(true); 
+	AutomationController->RunTests(true); 	
 }
 
 void UMyBPLib::StartLiveCodingCompile()

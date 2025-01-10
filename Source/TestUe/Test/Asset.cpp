@@ -36,6 +36,15 @@ bool TestAsset_AssetManager::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestAsset_AssetRegistry, "TestUe.Asset.AssetRegistry", EAutomationTestFlags::EditorContext | EAutomationTestFlags::EngineFilter)
 
 bool TestAsset_AssetRegistry::RunTest(const FString& Parameters)
-{	
+{
+	const IAssetRegistry& AssetRegistry = IAssetRegistry::GetChecked();
+	FARFilter Filter;
+	Filter.ClassPaths.Add(UMyObject::StaticClass()->GetClassPathName());
+	Filter.bRecursiveClasses = true;
+
+	TArray<FAssetData> AssetDataList;
+	AssetRegistry.GetAssets(Filter, AssetDataList);
+	TestEqual("AssetDataList.Num()", AssetDataList.Num(), 2);
+	
 	return true;
 }

@@ -16,6 +16,8 @@ public:
 
 private:	
 	void OnLiveCodingComplete();
+	void OnBlueprintReinstanced();
+	void OnEditorInitialized(double Duration);
 };
 
 

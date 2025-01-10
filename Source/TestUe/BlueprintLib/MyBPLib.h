@@ -16,10 +16,10 @@ public:
 	static FString GetPackageName(UObject* Object);
 
 	UFUNCTION(BlueprintCallable, Category = "TestUe")
-	static void StartAutomationTest();
-
+	static void StartAutomationTest();	
+	
 	UFUNCTION(BlueprintCallable, Category = "TestUe")
-	static void StartTestUeTest();
+	static void StartTestByPrefix(const FString& Prefix);
 
 	UFUNCTION(BlueprintCallable, Category = "TestUe")
 	static void StartLiveCodingCompile();
