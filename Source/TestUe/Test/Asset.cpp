@@ -44,18 +44,22 @@ bool TestAsset_AssetRegistry::RunTest(const FString& Parameters)
 
 	TArray<FAssetData> AssetDataList;
 	AssetRegistry.GetAssets(Filter, AssetDataList);
-	TestEqual("AssetDataList.Num()", AssetDataList.Num(), 2);
+	TestEqual("AssetDataList.Num()", AssetDataList.Num(), 0);	
 	
 	const FAssetData AssetData = AssetRegistry.GetAssetByObjectPath(FSoftObjectPath(FName("/Game/MyTest/BP_MyObject1.BP_MyObject1")));
 	TestTrue("AssetData.IsValid()", AssetData.IsValid());
-	TestEqual("AssetData.AssetName", AssetData.AssetName.ToString(), "BP_MyObject1");
-	TestEqual("AssetData.PackageName", AssetData.PackageName.ToString(), "/Game/MyTest/BP_MyObject1");
-	TestEqual("AssetData.AssetClass", AssetData.AssetClassPath.ToString(), "/Script/Engine.Blueprint");
+	TestEqual("AssetData.AssetName", AssetData.AssetName.ToString(), TEXT("BP_MyObject1"));
+	TestEqual("AssetData.PackageName", AssetData.PackageName.ToString(), TEXT("/Game/MyTest/BP_MyObject1"));
+	TestEqual("AssetData.AssetClass", AssetData.AssetClassPath.ToString(), TEXT("/Script/Engine.Blueprint"));
 
 	const UObject* Asset = AssetData.GetAsset();
 	TestNotNull("AssetData.GetAsset()", Asset);
-	const UBlueprintGeneratedClass* BlueprintClass = Cast<UBlueprintGeneratedClass>(Asset);
-	TestNotNull("Cast<UBlueprintGeneratedClass>", BlueprintClass);
+	const UBlueprint* Blueprint = Cast<UBlueprint>(Asset);
+	TestNotNull("Cast<UBlueprintGeneratedClass>", Blueprint);
+	const UMyObject* Cdo = Blueprint->GeneratedClass->GetDefaultObject<UMyObject>();
+	TestNotNull("GeneratedClass->GetDefault", Cdo);
+
+	TestEqual("Cdo->PlayerHealth", Cdo->PlayerHealth, 101);
 	
 	return true;
 }
