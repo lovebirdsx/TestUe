@@ -46,5 +46,16 @@ bool TestAsset_AssetRegistry::RunTest(const FString& Parameters)
 	AssetRegistry.GetAssets(Filter, AssetDataList);
 	TestEqual("AssetDataList.Num()", AssetDataList.Num(), 2);
 	
+	const FAssetData AssetData = AssetRegistry.GetAssetByObjectPath(FSoftObjectPath(FName("/Game/MyTest/BP_MyObject1.BP_MyObject1")));
+	TestTrue("AssetData.IsValid()", AssetData.IsValid());
+	TestEqual("AssetData.AssetName", AssetData.AssetName.ToString(), "BP_MyObject1");
+	TestEqual("AssetData.PackageName", AssetData.PackageName.ToString(), "/Game/MyTest/BP_MyObject1");
+	TestEqual("AssetData.AssetClass", AssetData.AssetClassPath.ToString(), "/Script/Engine.Blueprint");
+
+	const UObject* Asset = AssetData.GetAsset();
+	TestNotNull("AssetData.GetAsset()", Asset);
+	const UBlueprintGeneratedClass* BlueprintClass = Cast<UBlueprintGeneratedClass>(Asset);
+	TestNotNull("Cast<UBlueprintGeneratedClass>", BlueprintClass);
+	
 	return true;
 }
