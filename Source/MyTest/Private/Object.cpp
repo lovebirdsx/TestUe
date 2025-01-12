@@ -2,6 +2,16 @@
 #include "MyObject.h"
 #include "Misc/AutomationTest.h"
 
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestObject_Basic, "MyTest.Object.Basic", TEST_FILTER)
+
+bool TestObject_Basic::RunTest(const FString &Parameters)
+{
+    const UMyObject *MyObject = NewObject<UMyObject>();
+    TestTrue("MyObject is a child of UObject", MyObject->IsA<UObject>());
+    TestTrue("MyObject is a child of UMyObject", MyObject->IsA<UMyObject>());
+    return true;
+}
+
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestObject_StaticClass, "MyTest.Object.StaticClass", TEST_FILTER)
 
 bool TestObject_StaticClass::RunTest(const FString &Parameters)
@@ -37,6 +47,7 @@ bool TestObject_New::RunTest(const FString &Parameters)
 {
     // NewObject不会自动释放，需要调用垃圾回收
     {
+        CollectGarbage(GARBAGE_COLLECTION_KEEPFLAGS);
         UMyObject::NewCount = 0;
         UMyObject::FreeCount = 0;
         {

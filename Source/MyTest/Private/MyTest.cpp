@@ -31,18 +31,18 @@ INT32_MAIN_INT32_ARGC_TCHAR_ARGV()
 	{
 		if (Test.GetDisplayName().StartsWith(TEXT("MyTest")))
 		{
-			TestFramework.StartTestByName(Test.GetTestName(), 0);
+			TestFramework.StartTestByName(Test.GetTestName(), 0);			
 			if (FAutomationTestExecutionInfo TestExecutionInfo; TestFramework.StopTest(TestExecutionInfo))
 			{				
-				UE_LOG(LogMyTest, Display, TEXT("Pass: %s (%3fms)"), *Test.GetDisplayName(), TestExecutionInfo.Duration * 1000);
+				LOG("Pass: %s (%3fms)", *Test.GetDisplayName(), TestExecutionInfo.Duration * 1000);
 			}
 			else
 			{
-				UE_LOG(LogMyTest, Error, TEXT("Fail: %s (%3fms)"), *Test.GetDisplayName(), TestExecutionInfo.Duration * 1000);
+				ERR("Fail: %s (%3fms)", *Test.GetDisplayName(), TestExecutionInfo.Duration * 1000);
 				for (const FAutomationExecutionEntry& Entry : TestExecutionInfo.GetEntries())
 				{
 					GLog->Flush();
-					UE_LOG(LogMyTest, Error, TEXT("%s"), *Entry.Event.Message);
+					ERR("%s", *Entry.Event.Message);
 				}
 			}
             GLog->Flush();

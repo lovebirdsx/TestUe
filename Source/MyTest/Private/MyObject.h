@@ -33,3 +33,24 @@ public:
 
 	virtual void Serialize(FArchive& Ar) override;
 };
+
+UCLASS()
+class UOiObject1 : public UObject
+{
+	GENERATED_BODY()
+	
+public:
+	explicit UOiObject1(const FObjectInitializer& ObjectInitializer);	
+};
+
+UCLASS()
+class UOiObject2 : public UObject
+{
+	GENERATED_BODY()
+
+public:
+	explicit UOiObject2(const FObjectInitializer& ObjectInitializer);
+
+	UPROPERTY()
+	UOiObject1* Object1;
+};

@@ -30,10 +30,20 @@ async function exec(cmd, { logPrefix, workingDir, noThrow, formatText, verbose }
         const process = (0, child_process_1.spawn)(cmd, { shell: true, cwd: workingDir });
         process.on('close', (code) => {
             if (code !== 0 && !noThrow) {
-                reject(new Error(`Error executing command: ${cmd}`));
+                if (code === 0xC0000005) {
+                    reject(new Error(`Executing command failed with an Access Violation (0xC0000005). Code: ${code}. Command: ${cmd}`));
+                }
+                else {
+                    reject(new Error(`Executing command (code: ${code}): ${cmd}`));
+                }
             }
             else {
                 resolve();
+            }
+        });
+        process.on('error', (err) => {
+            if (!noThrow) {
+                reject(err);
             }
         });
         const realFormatText = formatText ?? ((data, isError) => (isError ? (0, util_1.red)(data) : data));

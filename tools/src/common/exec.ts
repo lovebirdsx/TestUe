@@ -43,14 +43,27 @@ export async function exec(cmd: string, { logPrefix, workingDir, noThrow, format
 
         process.on('close', (code) => {
             if (code !== 0 && !noThrow) {
-                reject(new Error(`Error executing command: ${cmd}`));
+                if (code === 0xC0000005) {
+                    reject(
+                        new Error(
+                            `Executing command failed with an Access Violation (0xC0000005). Code: ${code}. Command: ${cmd}`
+                        )
+                    );
+                } else {
+                    reject(new Error(`Executing command (code: ${code}): ${cmd}`));
+                }
             } else {
                 resolve();
             }
         });
 
-        const realFormatText = formatText ?? ((data: string, isError: boolean): string => (isError ? red(data) : data));
+        process.on('error', (err) => {
+            if (!noThrow) {
+                reject(err);
+            }
+        });
 
+        const realFormatText = formatText ?? ((data: string, isError: boolean): string => (isError ? red(data) : data));
 
         const onOutput = (data: string | undefined, isError: boolean): void => {
             if (!data) {
