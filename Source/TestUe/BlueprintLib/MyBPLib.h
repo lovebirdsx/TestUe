@@ -29,6 +29,12 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "TestUe")
 	static void UnloadSelectedAssets();
+
+	UFUNCTION(BlueprintCallable, Category = "TestUe")
+	static void LoadSelectedAssets();
+
+	UFUNCTION(BlueprintCallable, Category = "TestUe")
+	static void ShowSelectedAssetsLoadInfo();
 	
 	UFUNCTION(BlueprintCallable, Category = "TestUe")
 	static UMyEventManager* GetEventManager();

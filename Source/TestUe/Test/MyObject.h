@@ -30,6 +30,9 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
 	TSubclassOf<UMyObject> RefClass;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
+	TSoftClassPtr<UMyObject> SoftRefClass;
 
 	TArray<int32> Numbers;
 

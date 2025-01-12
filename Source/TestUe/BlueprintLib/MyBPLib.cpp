@@ -2,12 +2,32 @@
 
 #include "AutomationControllerSettings.h"
 #include "AutomationGroupFilter.h"
+#include "ContentBrowserModule.h"
 #include "IAutomationControllerModule.h"
+#include "IContentBrowserSingleton.h"
 #include "ILiveCodingModule.h"
 #include "ISessionFrontendModule.h"
 #include "MyEventManager.h"
 #include "PackageTools.h"
-#include "Selection.h"
+
+namespace 
+{
+	void GetSelectedAssets(TArray<FAssetData>& SelectedAssets)
+	{		
+		if (!GEditor)
+		{
+			UE_LOG(LogTemp, Error, TEXT("GEditor is null."));
+			return;
+		}
+
+		// 获取Content Browser模块
+		const FContentBrowserModule& ContentBrowserModule = FModuleManager::LoadModuleChecked<FContentBrowserModule>("ContentBrowser");
+		IContentBrowserSingleton& ContentBrowser = ContentBrowserModule.Get();		
+
+		// 获取选中的资产		
+		ContentBrowser.GetSelectedAssets(SelectedAssets);		
+	}
+}
 
 FString UMyBPLib::GetPackageName(UObject* Object)
 {
@@ -67,48 +87,93 @@ void UMyBPLib::ShowSessionFrontend()
 }
 
 void UMyBPLib::UnloadSelectedAssets()
-{
-	if (!GEditor)
-	{
-		UE_LOG(LogTemp, Error, TEXT("GEditor is null."));
-		return;
-	}
-	
-    // 获取当前选中的资产
-	USelection* Selection = GEditor->GetSelectedObjects();
-	if (!Selection)
-	{
-		UE_LOG(LogTemp, Error, TEXT("Selection is null."));
-		return;
-	}
-    
-	TArray<UObject*> SelectedObjects;
-	Selection->GetSelectedObjects<UObject>(SelectedObjects);
-	if (SelectedObjects.Num() == 0)
-	{
-		UE_LOG(LogTemp, Display, TEXT("No asset is selected."));
+{   
+	TArray<FAssetData> SelectedAssets;
+	GetSelectedAssets(SelectedAssets);
+	if (SelectedAssets.Num() == 0)
+	{		
 		return;
 	}
 	
 	TArray<FString> UnloadedPackageNames;
-    for (const UObject* Asset : SelectedObjects)
+    for (const FAssetData Asset : SelectedAssets)
     {
-        if (!Asset || !Asset->IsAsset())
+        if (!Asset.IsValid())
+        {
+	        continue;
+        }
+
+    	const UObject* Object = Asset.FastGetAsset();
+    	if (!Object)
 		{
 			continue;
 		}
-     
-    	UPackage* Package = Asset->GetOutermost();
-    	if (!Package)
-    	{
-    		continue;
-    	}
     	
-    	UnloadedPackageNames.Add(Package->GetName());
-    	UPackageTools::UnloadPackages({Package});
+    	UnloadedPackageNames.Add(Object->GetPathName());
+    	UPackageTools::UnloadPackages({Object->GetPackage()});
     }
 
-	FMessageDialog::Open(EAppMsgType::Ok, FText::FromString(FString::Join(UnloadedPackageNames, TEXT("\n"))));        
+	FMessageDialog::Open(EAppMsgType::Ok, FText::FromString(FString::Join(UnloadedPackageNames, TEXT("\n"))));
+}
+
+void UMyBPLib::LoadSelectedAssets()
+{
+	TArray<FAssetData> SelectedAssets;
+	GetSelectedAssets(SelectedAssets);
+	if (SelectedAssets.Num() == 0)
+	{		
+		return;
+	}
+
+	TArray<FString> Lines;
+	for (const FAssetData Asset : SelectedAssets)
+	{
+		if (!Asset.IsValid())
+		{
+			continue;
+		}
+
+		const UObject* Object = Asset.FastGetAsset();
+		if (Object)
+		{
+			Lines.Add(FString::Printf(TEXT("%s is already loaded."), *Object->GetPathName()));
+			continue;
+		}
+		
+		UPackageTools::LoadPackage(Asset.PackageName.ToString());
+		Lines.Add(FString::Printf(TEXT("%s is loaded."), *Asset.PackageName.ToString()));
+	}
+
+	FMessageDialog::Open(EAppMsgType::Ok, FText::FromString(FString::Join(Lines, TEXT("\n"))));
+}
+
+void UMyBPLib::ShowSelectedAssetsLoadInfo()
+{
+	TArray<FAssetData> SelectedAssets;
+	GetSelectedAssets(SelectedAssets);
+	if (SelectedAssets.Num() == 0)
+	{		
+		FMessageDialog::Open(EAppMsgType::Ok, FText::FromString(TEXT("No asset is selected.")));
+		return;
+	}
+
+	TArray<FString> Lines;
+	Lines.Add(FString::Printf(TEXT("Selected Asset Count: %d"), SelectedAssets.Num()));
+
+	for (const FAssetData Asset : SelectedAssets)
+	{
+		if (!Asset.IsValid())
+		{
+			continue;
+		}
+		
+		const bool bIsLoaded = Asset.FastGetAsset() != nullptr;
+		
+		FString Line = FString::Printf(TEXT("PackageName: %s, IsLoaded: %d"), *Asset.PackageName.ToString(), bIsLoaded);
+		Lines.Add(Line);
+	}
+
+	FMessageDialog::Open(EAppMsgType::Ok, FText::FromString(FString::Join(Lines, TEXT("\n"))));
 }
 
 UMyEventManager* UMyBPLib::GetEventManager()
