@@ -1,15 +1,22 @@
 # 说明
 
-* 个人用于测试ue功能的初始空项目
+* 用于测试ue功能
 * 去掉了不必要的插件依赖
 * 基于ue5.5.1版本
 * 需要使用源码引擎编译
 
 ## 工程说明
 
-* TestUe 
-  * 包含了一个Gas的简单示例
-  * Test目录下是自动化测试相关代码
+* Source
+  * TestUe
+    * 包含了一个Gas的简单示例
+    * Test目录下是自动化测试相关代码
+  * MyConsole
+    * 基于ue的控制台应用
+  * MySlateApp
+    * 基于ue的slate应用
+  * MyTest
+    * 单元测试，仅依赖ue的核心模块
 * Plugins
   * MyAsset 自定义资源和对应的编辑器
   * @ MyBlueprint 自定义蓝图编辑器（未完成）
@@ -40,3 +47,7 @@
 * 测试 `yarn tools:test`
 * 以监控模式跑测试 `yarn tools:test:watch`
 * lint `yarn tools:lint`
+
+3. gulp相关指令
+
+* 通过 gulp --tasks 查看所有任务

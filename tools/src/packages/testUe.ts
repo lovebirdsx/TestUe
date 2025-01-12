@@ -28,6 +28,15 @@ async function buildConsoleProgram() {
     });
 }
 
+async function buildMySlateApp() {
+    await execUnrealTool({
+        type: 'unrealBuildTool',
+        args: ['MySlateApp', 'Win64', 'Debug', `-Project="${uproject}"`],
+        logPrefix: '[build-slate] ',
+        workingDir,
+    });
+}
+
 async function buildTestProgram() {
     await execUnrealTool({
         type: 'unrealBuildTool',
@@ -37,7 +46,7 @@ async function buildTestProgram() {
     });
 }
 
-async function editorTest() {
+async function runEditorTest() {
     await execUnrealTool({
         type: 'unrealEditor',
         args: [`"${uproject}"`, '-execcmds="Automation RunTests StartsWith:TestUe.; Quit"', '-unattended', '-stdout', '-nopause', '-nosound', '-NOSPLASH', '-NullRHI'],
@@ -46,16 +55,34 @@ async function editorTest() {
     });
 }
 
-async function test() {
+async function runTest() {
     const exe = path.join(workingDir, 'Binaries', 'Win64', 'MyTest-Win64-Debug.exe');
     await exec(exe, {
         logPrefix: '[test] ',
         workingDir,
         formatText: formatUnrealOutput,
-    })
+    });
 }
 
-async function clean() {
+async function runConsoleProgram() {
+    const exe = path.join(workingDir, 'Binaries', 'Win64', 'MyConsole-Win64-Debug.exe');
+    await exec(exe, {
+        logPrefix: '[console] ',
+        workingDir,
+        formatText: formatUnrealOutput,
+    });
+}
+
+async function runMySlateApp() {
+    const exe = path.join(workingDir, 'Binaries', 'Win64', 'MySlateApp-Win64-Debug.exe');
+    await exec(exe, {
+        logPrefix: '[slate] ',
+        workingDir,
+        formatText: formatUnrealOutput,
+    });
+}
+
+async function runClean() {
     cleanDir(path.join(workingDir, 'Binaries'));
     cleanDir(path.join(workingDir, 'Intermediate'));
     cleanDir(path.join(workingDir, 'Saved'));
@@ -84,31 +111,57 @@ gulp.task('build-test', buildTestProgram);
 
 gulp.task('editor-test', async () => {
     await build();
-    await editorTest();
+    await runEditorTest();
 });
 
 gulp.task('editor-test:watch', async () => {
     await build();
-    await editorTest();
+    await runEditorTest();
 
     const watchDir = path.join(workingDir, 'Source', 'TestUe');
     gulp.watch(watchDir, gulp.series('editor-test'));
 });
 
+gulp.task('console', async () => {
+    await buildConsoleProgram();
+    await runConsoleProgram();
+});
+
+gulp.task('console:watch', async () => {
+    await buildConsoleProgram();
+    await runConsoleProgram();
+
+    const watchDir = path.join(workingDir, 'Source', 'MyConsole');
+    gulp.watch(watchDir, gulp.series('console'));
+});
+
+gulp.task('slate', async () => {
+    await buildMySlateApp();
+    await runMySlateApp();
+});
+
+gulp.task('slate:watch', async () => {
+    await buildMySlateApp();
+    await runMySlateApp();
+
+    const watchDir = path.join(workingDir, 'Source', 'MySlateApp');
+    gulp.watch(watchDir, gulp.series('slate'));
+});
+
 gulp.task('test', async () => {
     await buildTestProgram();
-    await test();
+    await runTest();
 });
 
 gulp.task('test:watch', async () => {
     await buildTestProgram();
-    await test();
+    await runTest();
 
     const watchDir = path.join(workingDir, 'Source', 'MyTest');
     gulp.watch(watchDir, gulp.series('test'));
 });
 
-gulp.task('clean', clean);
+gulp.task('clean', runClean);
 
 gulp.task('runuat-help', async () => {
     await execUnrealTool({
