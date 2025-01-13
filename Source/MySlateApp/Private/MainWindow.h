@@ -1,5 +1,12 @@
 ﻿#pragma once
 
-#include "SWindow.h"
+class SWindow;
 
-TSharedRef<SWindow> CreateMainWindow();
+class IMainWindow
+{
+public:
+	static TSharedPtr<IMainWindow> Create();
+
+	virtual ~IMainWindow() = default;	
+	virtual TSharedRef<SWindow> CreateMainWindow() = 0;
+};

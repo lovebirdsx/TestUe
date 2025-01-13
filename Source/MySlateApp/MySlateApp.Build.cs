@@ -17,6 +17,7 @@ public class MySlateApp : ModuleRules
                 "Slate",
                 "SlateCore",
                 "StandaloneRenderer",
+                "JsonUtilities",
                 "ToolWidgets",
             }
         );

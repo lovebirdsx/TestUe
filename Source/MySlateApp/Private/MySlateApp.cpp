@@ -1,6 +1,7 @@
 #include "MySlateApp.h"
 #include "Log.h"
 #include "MainWindow.h"
+#include "MyConfig.h"
 #include "RequiredProgramMainCPPInclude.h"
 #include "StandaloneRenderer.h"
 #include "Framework/Application/SlateApplication.h"
@@ -36,11 +37,12 @@ int RunMySlateApp(const TCHAR* CommandLine)
 
 	LOG("MySlateApp started");
 	
-	FSlateApplication::Get().AddWindow(CreateMainWindow());	
-
-	// new scope to allow TabManager to go out of scope before the Engine is dead
 	{
-		// loop while the server does the rest
+		// MainWindow必须放在独立的作用域中，否则会导致MainWindow的析构函数在FSlateApplication::Shutdown()之后调用
+		// 从而导致退出的时候报错
+		TSharedPtr<IMainWindow> MainWindow = IMainWindow::Create();
+		FSlateApplication::Get().AddWindow(MainWindow->CreateMainWindow());
+		
 		while (!IsEngineExitRequested())
 		{
 			BeginExitIfRequested();
@@ -54,15 +56,17 @@ int RunMySlateApp(const TCHAR* CommandLine)
 
 			GFrameCounter++;
 		}
+
+		FMyConfigGetter::Get().Save();
+		FMyConfigGetter::Destroy();
 	}
 
 	LOG("MySlateApp shutting down");
 
 	FCoreDelegates::OnExit.Broadcast();
+	FEngineLoop::AppPreExit();
 	FSlateApplication::Shutdown();
 	FModuleManager::Get().UnloadModulesAtShutdown();
-
-	FEngineLoop::AppPreExit();
 	FEngineLoop::AppExit();
 
 	LOG("MySlateApp exited");
