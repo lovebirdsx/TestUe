@@ -1,6 +1,6 @@
 ﻿#include "MyObject.h"
 #include "MyTest.h"
-#include "Package.h"
+#include "UObject/Package.h"
 
 int32 UMyObject::FreeCount = 0;
 int32 UMyObject::NewCount = 0;

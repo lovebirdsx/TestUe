@@ -1,8 +1,9 @@
-﻿#include "MemoryReader.h"
-#include "MemoryWriter.h"
+﻿#include "Serialization/MemoryReader.h"
+#include "Serialization/MemoryWriter.h"
+#include "Misc/AutomationTest.h"
+
 #include "MyTest.h"
 #include "MyObject.h"
-#include "Misc/AutomationTest.h"
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(Serializer_Base, "MyTest.Serializer.Base", TEST_FILTER)
 

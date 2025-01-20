@@ -1,6 +1,6 @@
 ﻿#include "MyObject.h"
 #include "MyTest.h"
-#include "Package.h"
+#include "UObject/Package.h"
 #include "Misc/AutomationTest.h"
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestObjectInitializer_Basic, "MyTest.ObjectInitializer.Basic", TEST_FILTER)
