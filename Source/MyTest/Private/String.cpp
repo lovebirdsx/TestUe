@@ -1,4 +1,5 @@
 ﻿#include "MyTest.h"
+
 #include "Misc/AutomationTest.h"
 
 #define LOCTEXT_NAMESPACE "MyTest"

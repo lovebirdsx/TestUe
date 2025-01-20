@@ -1,5 +1,8 @@
-﻿#include "MyObject.h"
-#include "MyTest.h"
+﻿#include "MyTest.h"
+
+#include "MyObject.h"
+
+#include "UObject/Object.h"
 #include "UObject/Package.h"
 
 int32 UMyObject::FreeCount = 0;

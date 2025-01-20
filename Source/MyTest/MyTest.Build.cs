@@ -12,5 +12,13 @@ public class MyTest : ModuleRules
 
         DefaultBuildSettings = BuildSettingsVersion.V5;
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+        PrivatePCHHeaderFile = "Private/MyTest.h";
+
+        bLegacyPublicIncludePaths = false;
+        bLegacyParentIncludePaths = false;
+
+        CppStandard = CppStandardVersion.Cpp20;
+
+        bValidateFormatStrings = true;
     }
 }

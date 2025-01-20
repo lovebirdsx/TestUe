@@ -1,8 +1,8 @@
-﻿#include "UObject/Package.h"
+﻿#include "MyTest.h"
+
+#include "UObject/Package.h"
 #include "UObject/UObjectIterator.h"
 #include "Misc/AutomationTest.h"
-
-#include "MyTest.h"
 
 namespace
 {
