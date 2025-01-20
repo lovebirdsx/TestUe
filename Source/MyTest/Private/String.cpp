@@ -1,7 +1,7 @@
 ﻿#include "MyTest.h"
 #include "Misc/AutomationTest.h"
 
-#define LOCTEXT_NAMESPACE "TestString"
+#define LOCTEXT_NAMESPACE "MyTest"
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestString_FName, "MyTest.String.FName", TEST_FILTER)
 
