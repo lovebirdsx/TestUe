@@ -10,6 +10,9 @@
 #include "TestManager.h"
 #include "Tests/TestButton.h"
 #include "Tests/TestSlider.h"
+#include "Tests/TestModalWindow.h"
+#include "Tests/TestCustomWidget.h"
+#include "Tests/TestSlateUser.h"
 
 #define LOCTEXT_NAMESPACE "MySlateApp"
 
@@ -163,6 +166,9 @@ private:
 	{
 		TestManager.RegisterTest(MakeShared<FTestButton>());
 		TestManager.RegisterTest(MakeShared<FTestSlider>());
+		TestManager.RegisterTest(MakeShared<FTestModalWindow>());
+		TestManager.RegisterTest(MakeShared<FTestCustomWidget>());
+		TestManager.RegisterTest(MakeShared<FTestSlateUser>());
 	}
 	
 	FTestManager TestManager;
