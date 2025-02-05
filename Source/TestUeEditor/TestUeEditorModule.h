@@ -6,7 +6,7 @@
 
 #include "Modules/ModuleManager.h"
 
-class TESTUE_API FTestUe : public IModuleInterface
+class TESTUEEDITOR_API FTestUeEditor : public IModuleInterface
 {
 public:
 

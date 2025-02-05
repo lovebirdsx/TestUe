@@ -7,7 +7,7 @@
 class UMyEventManager;
 
 UCLASS(Blueprintable)
-class TESTUE_API UMyBPLib : public UBlueprintFunctionLibrary
+class TESTUEEDITOR_API UMyBPLib : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 

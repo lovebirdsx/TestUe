@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "AssetTypeActions/AssetTypeActions_Blueprint.h"
 
-class MYBLUEPRINT_API FAssetTypeActions_MyBlueprint : public FAssetTypeActions_Blueprint
+class MYBLUEPRINTEDITOR_API FAssetTypeActions_MyBlueprint : public FAssetTypeActions_Blueprint
 {
 public:
 	virtual UClass* GetSupportedClass() const override;

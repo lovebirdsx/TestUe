@@ -9,7 +9,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnLiveCodingCompleteDelegate);
 
 UCLASS(Blueprintable, BlueprintType)
-class TESTUE_API UMyEventManager : public UObject
+class TESTUEEDITOR_API UMyEventManager : public UObject
 {
 	GENERATED_BODY()
 public:

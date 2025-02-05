@@ -18,6 +18,11 @@
 			"Name": "MyBlueprint",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "MyBlueprintEditor",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
 		}
 	]
 }

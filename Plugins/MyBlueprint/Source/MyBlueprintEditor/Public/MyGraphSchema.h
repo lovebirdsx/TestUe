@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class MYBLUEPRINT_API UMyGraphSchema : public UEdGraphSchema_K2
+class MYBLUEPRINTEDITOR_API UMyGraphSchema : public UEdGraphSchema_K2
 {
 	GENERATED_BODY()
 

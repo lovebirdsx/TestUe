@@ -3,9 +3,7 @@
 
 #include "MyBlueprint.h"
 
-#include "Helper.h"
-
 UMyBlueprint::UMyBlueprint()
 {
-	Print("UMyBlueprint::UMyBlueprint()");
+	UE_LOG(LogTemp, Warning, TEXT("UMyBlueprint"));
 }

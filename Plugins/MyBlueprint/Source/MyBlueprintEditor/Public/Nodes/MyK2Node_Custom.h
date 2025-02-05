@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class MYBLUEPRINT_API UMyK2Node_Custom : public UK2Node
+class MYBLUEPRINTEDITOR_API UMyK2Node_Custom : public UK2Node
 {
 	GENERATED_BODY()
 

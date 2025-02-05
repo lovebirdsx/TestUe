@@ -1,4 +1,4 @@
-﻿#include "MyObject.h"
+﻿#include "TestUe/Test/MyObject.h"
 #include "Misc/AutomationTest.h"
 #include "Misc/TransactionObjectEvent.h"
 

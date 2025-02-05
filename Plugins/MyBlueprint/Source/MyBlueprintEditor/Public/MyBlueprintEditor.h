@@ -5,7 +5,7 @@
 
 class UMyBlueprint;
 
-class MYBLUEPRINT_API FMyBlueprintEditor : public FBlueprintEditor
+class MYBLUEPRINTEDITOR_API FMyBlueprintEditor : public FBlueprintEditor
 {
 public:
 	virtual void InitMyBlueprintEditor(::EToolkitMode::Type Mode, const TSharedPtr<IToolkitHost>& InitToolkitHost, UBlueprint* Blueprint);

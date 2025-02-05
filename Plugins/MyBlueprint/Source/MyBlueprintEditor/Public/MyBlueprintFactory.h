@@ -5,7 +5,7 @@
 #include "MyBlueprintFactory.generated.h"
 
 UCLASS()
-class MYBLUEPRINT_API UMyBlueprintFactory : public UBlueprintFactory
+class MYBLUEPRINTEDITOR_API UMyBlueprintFactory : public UBlueprintFactory
 {
 	GENERATED_BODY()
 

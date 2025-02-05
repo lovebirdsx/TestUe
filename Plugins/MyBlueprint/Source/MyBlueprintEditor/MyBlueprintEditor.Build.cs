@@ -1,8 +1,8 @@
 ﻿using UnrealBuildTool;
 
-public class MyBlueprint : ModuleRules
+public class MyBlueprintEditor : ModuleRules
 {
-	public MyBlueprint(ReadOnlyTargetRules Target) : base(Target)
+	public MyBlueprintEditor(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
@@ -37,6 +37,11 @@ public class MyBlueprint : ModuleRules
 				"Slate",
 				"SlateCore",
 				"ToolMenus",
+                "UnrealEd",
+                "BlueprintGraph",
+                "Kismet",
+                "AssetTools",
+                "MyBlueprint",
 				// ... add private dependencies that you statically link with here ...	
 			}
 		);

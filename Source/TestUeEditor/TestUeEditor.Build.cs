@@ -2,10 +2,11 @@
 
 using UnrealBuildTool;
 
-public class TestUe : ModuleRules
+public class TestUeEditor : ModuleRules
 {
-	public TestUe(ReadOnlyTargetRules Target) : base(Target)
+	public TestUeEditor(ReadOnlyTargetRules Target) : base(Target)
 	{
+		PrivateDependencyModuleNames.AddRange(new string[] {"LiveCoding", "SessionFrontend"});
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
 		PublicDependencyModuleNames.AddRange(new string[] 
@@ -18,8 +19,10 @@ public class TestUe : ModuleRules
             "GameplayAbilities",
             "GameplayTags",
             "GameplayTasks",
+            "UnrealEd",
+            "TestUe",
         });
-
+		
         // Uncomment if you are using Slate UI
         // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 
