@@ -20,6 +20,7 @@ public class TestUeEditor : ModuleRules
             "GameplayTags",
             "GameplayTasks",
             "UnrealEd",
+            "DeveloperSettings",
             "TestUe",
         });
 		

@@ -9,7 +9,8 @@
 
 * Source
   * TestUe
-    * 包含了一个Gas的简单示例
+    * Gas的简单示例
+    * 联机测试代码
     * Test目录下是自动化测试相关代码
   * MyConsole
     * 基于ue的控制台应用
@@ -20,6 +21,13 @@
 * Plugins
   * MyAsset 自定义资源和对应的编辑器
   * @ MyBlueprint 自定义蓝图编辑器（未完成）
+
+## 配置说明
+
+```ini
+[/Script/TestUeEditor.TestUeSettings]
+bRunTestAfterBpCompile=False # 蓝图编译后是否自动运行测试
+```
 
 ## 工具
 

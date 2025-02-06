@@ -21,15 +21,22 @@
     "strings": true
   },
   "files.exclude": {
+    ".vsconfig": true,
+    "*.sln": true,
+    "*.user": true,
     "**/.git": true,
     "**/.svn": true,
     "**/.hg": true,
+    "**/.vs": true,
+    "**/.idea": true,
     "**/CVS": true,
     "**/.DS_Store": true,
-    "Binaries": true,
-    "DerivedDataCache": true,
-    "Intermediate": true,
-    "Saved": true,
+    "**/Binaries": true,
+    "**/Content": true,
+    "**/DerivedDataCache": true,
+    "**/Intermediate": true,
+    "**/Saved": true,
+    "**/Build": true,
     "**/node_modules": true
   },
   "files.watcherExclude": {

@@ -1,4 +1,5 @@
 #include "TestUeEditorModule.h"
+#include "Common/TestUeSettings.h"
 
 #include "ILiveCodingModule.h"
 #include "BlueprintLib/MyBPLib.h"
@@ -49,7 +50,11 @@ void FTestUeEditor::OnLiveCodingComplete()
 
 void FTestUeEditor::OnBlueprintReinstanced()
 {
-	UMyBPLib::StartTestByPrefix(TEXT("Project.Functional"));
+	const UTestUeSettings* Settings = GetDefault<UTestUeSettings>();
+	if (Settings->bRunTestAfterBpCompile)
+	{
+		UMyBPLib::StartTestByPrefix(TEXT("Project.Functional"));
+	}
 }
 
 void FTestUeEditor::OnEditorInitialized(double Duration)

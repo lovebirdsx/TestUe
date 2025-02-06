@@ -1,0 +1,26 @@
+{
+  "folders": [
+    {
+      "name": "Config",
+      "path": "Config"
+    },
+    {
+      "name": "Runtime",
+      "path": "../../UE_5.5_Source/Engine/Source/Runtime"
+    },
+    {
+      "name": "Editor",
+      "path": "../../UE_5.5_Source/Engine/Source/Editor"
+    },
+    {
+      "name": "Developer",
+      "path": "../../UE_5.5_Source/Engine/Source/Developer"
+    },
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "C_Cpp.intelliSenseEngine": "Tag Parser"
+  }
+}
