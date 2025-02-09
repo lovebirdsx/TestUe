@@ -67,3 +67,23 @@ bool TestObject_New::RunTest(const FString &Parameters)
 
     return true;
 }
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestObject_SubObject, "MyTest.Object.SubObject", TEST_FILTER)
+
+bool TestObject_SubObject::RunTest(const FString &Parameters)
+{
+    UOiObject2 *OiObject2 = NewObject<UOiObject2>();
+    TestNotNull(TEXT("OiObject2 should not be null"), OiObject2);
+
+    TArray<UObject *> SubObjects;
+    OiObject2->GetDefaultSubobjects(SubObjects);
+
+    TestEqual(TEXT("SubObjects should have 1 element"), SubObjects.Num(), 1);
+
+    UObject *SubObject = SubObjects[0];
+    TestNotNull(TEXT("SubObject should not be null"), SubObject);
+
+    TestTrue(TEXT("SubObject is a child of UOiObject1"), SubObject->IsA<UOiObject1>());
+
+    return true;
+}
