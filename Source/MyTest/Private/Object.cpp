@@ -6,9 +6,36 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestObject_Basic, "MyTest.Object.Basic", TEST_F
 
 bool TestObject_Basic::RunTest(const FString &Parameters)
 {
+    // IsA
     const UMyObject *MyObject = NewObject<UMyObject>();
     TestTrue("MyObject is a child of UObject", MyObject->IsA<UObject>());
     TestTrue("MyObject is a child of UMyObject", MyObject->IsA<UMyObject>());
+
+    // GetDerivedClasses
+    TArray<UClass *> DerivedClasses;
+    GetDerivedClasses(UMyObjectBase::StaticClass(), DerivedClasses);
+    TestTrue("DerivedClasses should have UMyObjectDerived1", DerivedClasses.Contains(UMyObjectDerived1::StaticClass()));
+    TestTrue("DerivedClasses should have UMyObjectDerived2", DerivedClasses.Contains(UMyObjectDerived2::StaticClass()));
+
+    // GetObjectsOfClass
+    {
+        TArray<UObject *> Objects;
+        GetObjectsOfClass(UMyObjectBase::StaticClass(), Objects);
+        TestEqual("Objects should have 0 elements", Objects.Num(), 0);
+
+        {
+
+            UMyObjectDerived1 *MyObjectDerived1 = NewObject<UMyObjectDerived1>();
+            GetObjectsOfClass(UMyObjectBase::StaticClass(), Objects);
+            TestEqual("Objects should have 1 element", Objects.Num(), 1);
+        }
+
+        CollectGarbage(GARBAGE_COLLECTION_KEEPFLAGS);
+        Objects.Empty();
+        GetObjectsOfClass(UMyObjectBase::StaticClass(), Objects);
+        TestEqual("Objects should have 0 elements", Objects.Num(), 0);
+    }
+
     return true;
 }
 

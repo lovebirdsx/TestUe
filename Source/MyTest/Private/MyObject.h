@@ -6,50 +6,68 @@
 UCLASS()
 class UMyObject : public UObject
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	static int32 FreeCount;
-	static int32 NewCount;
-	
-	UMyObject();
-	virtual ~UMyObject() override { FreeCount++; }
-	
-	UPROPERTY()
-	FVector3f PlayerLocation;
+    static int32 FreeCount;
+    static int32 NewCount;
 
-	UPROPERTY()
-	int32 PlayerHealth;
+    UMyObject();
+    virtual ~UMyObject() override { FreeCount++; }
 
-	UPROPERTY()
-	TArray<int32> NumbersProperty;
+    UPROPERTY()
+    FVector3f PlayerLocation;
 
-	TArray<int32> Numbers;
+    UPROPERTY()
+    int32 PlayerHealth;
 
-	int32 SelfSerialNumber = 0;
+    UPROPERTY()
+    TArray<int32> NumbersProperty;
 
-	int32 NormalNumber = 0;
+    TArray<int32> Numbers;
 
-	virtual void Serialize(FArchive& Ar) override;
+    int32 SelfSerialNumber = 0;
+
+    int32 NormalNumber = 0;
+
+    virtual void Serialize(FArchive &Ar) override;
 };
 
 UCLASS()
 class UOiObject1 : public UObject
 {
-	GENERATED_BODY()
-	
+    GENERATED_BODY()
+
 public:
-	explicit UOiObject1(const FObjectInitializer& ObjectInitializer);	
+    explicit UOiObject1(const FObjectInitializer &ObjectInitializer);
 };
 
 UCLASS()
 class UOiObject2 : public UObject
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	explicit UOiObject2(const FObjectInitializer& ObjectInitializer);
+    explicit UOiObject2(const FObjectInitializer &ObjectInitializer);
 
-	UPROPERTY()
-	UOiObject1* Object1;
+    UPROPERTY()
+    UOiObject1 *Object1;
+};
+
+UCLASS()
+class UMyObjectBase : public UObject
+{
+    GENERATED_BODY()
+};
+
+UCLASS()
+class UMyObjectDerived1 : public UMyObjectBase
+{
+    GENERATED_BODY()
+};
+
+UCLASS()
+class UMyObjectDerived2 : public UMyObjectBase
+{
+    GENERATED_BODY()
 };
