@@ -46,6 +46,16 @@ async function buildTestProgram() {
     });
 }
 
+async function runEditor() {
+    const uproject = path.join(workingDir, 'TestUe.uproject');
+    await execUnrealTool({
+        type: 'unrealEditor',
+        args: [`"${uproject}"`],
+        logPrefix: '[editor] ',
+        workingDir,
+    });
+}
+
 async function runEditorTest() {
     await execUnrealTool({
         type: 'unrealEditor',
@@ -105,6 +115,16 @@ gulp.task('set-guid', async () => {
 
 gulp.task('build', build);
 
+gulp.task('editor', runEditor);
+
+gulp.task('editor:watch', async () => {
+    await build();
+    await runEditor();
+
+    const watchDirGlob = path.join(workingDir, 'Source', 'TestUe') + '/**/*';
+    gulp.watch(watchDirGlob, gulp.series('build', 'editor'));
+});
+
 gulp.task('build-console', buildConsoleProgram);
 
 gulp.task('build-test', buildTestProgram);
@@ -118,8 +138,8 @@ gulp.task('editor-test:watch', async () => {
     await build();
     await runEditorTest();
 
-    const watchDir = path.join(workingDir, 'Source', 'TestUe');
-    gulp.watch(watchDir, gulp.series('editor-test'));
+    const watchDirGlob = path.join(workingDir, 'Source', 'TestUe') + '/**/*';
+    gulp.watch(watchDirGlob, gulp.series('editor-test'));
 });
 
 gulp.task('console', async () => {
@@ -131,8 +151,8 @@ gulp.task('console:watch', async () => {
     await buildConsoleProgram();
     await runConsoleProgram();
 
-    const watchDir = path.join(workingDir, 'Source', 'MyConsole');
-    gulp.watch(watchDir, gulp.series('console'));
+    const watchDirGlob = path.join(workingDir, 'Source', 'MyConsole') + '/**/*';
+    gulp.watch(watchDirGlob, gulp.series('console'));
 });
 
 gulp.task('slate', async () => {
@@ -144,8 +164,8 @@ gulp.task('slate:watch', async () => {
     await buildMySlateApp();
     await runMySlateApp();
 
-    const watchDir = path.join(workingDir, 'Source', 'MySlateApp');
-    gulp.watch(watchDir, gulp.series('slate'));
+    const watchDirGlob = path.join(workingDir, 'Source', 'MySlateApp') + '/**/*';
+    gulp.watch(watchDirGlob, gulp.series('slate'));
 });
 
 gulp.task('test', async () => {
@@ -157,8 +177,8 @@ gulp.task('test:watch', async () => {
     await buildTestProgram();
     await runTest();
 
-    const watchDir = path.join(workingDir, 'Source', 'MyTest');
-    gulp.watch(watchDir, gulp.series('test'));
+    const watchDirGlob = path.join(workingDir, 'Source', 'MyTest') + '/**/*';
+    gulp.watch(watchDirGlob, gulp.series('test'));
 });
 
 gulp.task('clean', runClean);

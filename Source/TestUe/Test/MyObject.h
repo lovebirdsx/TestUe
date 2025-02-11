@@ -4,6 +4,33 @@
 #include "UObject/Object.h"
 #include "MyObject.generated.h"
 
+// 标记为DefaultToInstanced，可以内联创建，譬如该对象作为属性，可以无需多创建一个资源
+// 具体案例可以参考，BP_MyObject1.uasset种的用法：UMyDataBase对象可以内联创建，也可以引用资源
+UCLASS(Abstract, DefaultToInstanced, EditInlineNew)
+class TESTUE_API UMyDataBase : public UObject
+{
+    GENERATED_BODY()
+};
+
+// 标记为BlueprintType和Blueprintable，编辑器可以构造基于该c++类型的蓝图
+UCLASS(Blueprintable, BlueprintType)
+class TESTUE_API UMyData1 : public UMyDataBase
+{
+    GENERATED_BODY()
+public:
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
+    int32 Value;
+};
+
+UCLASS(Blueprintable, BlueprintType)
+class TESTUE_API UMyData2 : public UMyDataBase
+{
+    GENERATED_BODY()
+public:
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
+    FString Name;
+};
+
 UCLASS(Blueprintable, BlueprintType)
 class TESTUE_API UMyObject : public UObject
 {
@@ -33,6 +60,9 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
     TSoftClassPtr<UMyObject> SoftRefClass;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
+    TArray<UMyDataBase *> DataArray;
 
     TArray<int32> Numbers;
 
