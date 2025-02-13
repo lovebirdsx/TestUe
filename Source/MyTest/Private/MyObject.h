@@ -71,3 +71,14 @@ class UMyObjectDerived2 : public UMyObjectBase
 {
     GENERATED_BODY()
 };
+
+UCLASS()
+class UMyCdoObject : public UObject
+{
+    GENERATED_BODY()
+public:
+    UMyCdoObject();
+
+    UPROPERTY()
+    int32 Value;
+};

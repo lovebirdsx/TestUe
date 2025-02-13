@@ -50,6 +50,17 @@ bool TestObject_StaticClass::RunTest(const FString &Parameters)
     return true;
 }
 
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestObject_Cdo, "MyTest.Object.Cdo", TEST_FILTER)
+
+bool TestObject_Cdo::RunTest(const FString &Parameters)
+{
+    UMyCdoObject *Cdo = UMyCdoObject::StaticClass()->GetDefaultObject<UMyCdoObject>();
+    TestNotNull(TEXT("Cdo is not null"), Cdo);
+    TestEqual(TEXT("Cdo.Value must be 100"), Cdo->Value, 100);
+
+    return true;
+}
+
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestObject_PropIt, "MyTest.Object.PropIt", TEST_FILTER)
 
 bool TestObject_PropIt::RunTest(const FString &Parameters)
