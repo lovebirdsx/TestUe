@@ -72,13 +72,13 @@ class UMyObjectDerived2 : public UMyObjectBase
     GENERATED_BODY()
 };
 
-UCLASS()
+UCLASS(Config = MyObject)
 class UMyCdoObject : public UObject
 {
     GENERATED_BODY()
 public:
     UMyCdoObject();
 
-    UPROPERTY()
+    UPROPERTY(Config)
     int32 Value;
 };

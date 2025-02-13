@@ -1,6 +1,6 @@
-﻿#include "MyTest.h"
+﻿#include "MyObject.h"
 
-#include "MyObject.h"
+#include "MyTest.h"
 
 #include "UObject/Object.h"
 #include "UObject/Package.h"

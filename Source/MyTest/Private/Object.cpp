@@ -1,6 +1,9 @@
 ﻿#include "MyTest.h"
 #include "MyObject.h"
+#include "Misc/Paths.h"
+#include "Misc/FileHelper.h"
 #include "Misc/AutomationTest.h"
+#include "HAL/FileManager.h"
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestObject_Basic, "MyTest.Object.Basic", TEST_FILTER)
 
@@ -57,6 +60,30 @@ bool TestObject_Cdo::RunTest(const FString &Parameters)
     UMyCdoObject *Cdo = UMyCdoObject::StaticClass()->GetDefaultObject<UMyCdoObject>();
     TestNotNull(TEXT("Cdo is not null"), Cdo);
     TestEqual(TEXT("Cdo.Value must be 100"), Cdo->Value, 100);
+
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestObject_LoadConfig, "MyTest.Object.LoadConfig", TEST_FILTER)
+
+bool TestObject_LoadConfig::RunTest(const FString &Parameters)
+{
+    // 构造一个ini文件
+    FString ConfigDir = FPaths::ProjectDir() / TEXT("Config");
+    IFileManager::Get().MakeDirectory(*ConfigDir, true);
+    FString ConfigFilename = ConfigDir / TEXT("MyObject.ini");
+
+    FString ConfigContent = TEXT("[/Script/MyTest.MyCdoObject]\nValue=200\n");
+    FFileHelper::SaveStringToFile(ConfigContent, *ConfigFilename);
+
+    UClass *MyCdoObjectClass = UMyCdoObject::StaticClass();
+    MyCdoObjectClass->ClassFlags |= CLASS_Config;
+    UMyCdoObject *Obj = NewObject<UMyCdoObject>();
+    Obj->LoadConfig(nullptr, *ConfigFilename);
+    TestEqual(TEXT("Obj.Value must be 200"), Obj->Value, 200);
+
+    // 移除ini文件
+    IFileManager::Get().Delete(*ConfigFilename);
 
     return true;
 }
