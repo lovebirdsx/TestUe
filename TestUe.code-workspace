@@ -18,6 +18,9 @@
     },
     {
       "path": "."
+    },
+    {
+      "path": "../../UE_5.5_Source/Engine/Plugins/EnhancedInput"
     }
   ],
   "settings": {
