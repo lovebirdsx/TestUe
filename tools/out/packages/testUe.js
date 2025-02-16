@@ -101,12 +101,23 @@ gulp.task('set-guid', async () => {
     (0, unrealTool_1.associateUnrealBuildInRegistry)((0, unrealTool_1.getUnrealEnginePath)(), UNREAL_BUILD_GUID);
 });
 gulp.task('build', build);
+gulp.task('build:watch', async () => {
+    await build();
+    const watchDirGlobs = [
+        path.join(workingDir, 'Source', 'TestUe', '**/*'),
+        path.join(workingDir, 'Plugins', '**/Source/**/*'),
+    ];
+    gulp.watch(watchDirGlobs, gulp.series('build'));
+});
 gulp.task('editor', runEditor);
 gulp.task('editor:watch', async () => {
     await build();
     await runEditor();
-    const watchDirGlob = path.join(workingDir, 'Source', 'TestUe') + '/**/*';
-    gulp.watch(watchDirGlob, gulp.series('build', 'editor'));
+    const watchDirGlobs = [
+        path.join(workingDir, 'Source', 'TestUe', '**/*'),
+        path.join(workingDir, 'Plugins', '**/Source/**/*'),
+    ];
+    gulp.watch(watchDirGlobs, gulp.series('build', 'editor'));
 });
 gulp.task('build-console', buildConsoleProgram);
 gulp.task('build-test', buildTestProgram);
@@ -117,8 +128,11 @@ gulp.task('editor-test', async () => {
 gulp.task('editor-test:watch', async () => {
     await build();
     await runEditorTest();
-    const watchDirGlob = path.join(workingDir, 'Source', 'TestUe') + '/**/*';
-    gulp.watch(watchDirGlob, gulp.series('editor-test'));
+    const watchDirGlobs = [
+        path.join(workingDir, 'Source', 'TestUe', '**/*'),
+        path.join(workingDir, 'Plugins', '**/Source/**/*'),
+    ];
+    gulp.watch(watchDirGlobs, gulp.series('editor-test'));
 });
 gulp.task('console', async () => {
     await buildConsoleProgram();
