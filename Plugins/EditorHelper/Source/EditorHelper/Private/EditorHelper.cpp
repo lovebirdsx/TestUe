@@ -1,4 +1,5 @@
 #include "EditorHelper.h"
+#include "AssetManagerEditorModule.h"
 
 UObject *UEditorHelper::GetActiveEditAsset()
 {
@@ -44,22 +45,22 @@ UObject *UEditorHelper::GetActiveEditAsset()
 
 bool UEditorHelper::CloseActiveEditAsset()
 {
-	if (!GEditor)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("GEditor is null"));
-		return false;
-	}
+    if (!GEditor)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("GEditor is null"));
+        return false;
+    }
 
-    UAssetEditorSubsystem* AssetEditorSubsystem = GEditor->GetEditorSubsystem<UAssetEditorSubsystem>();
+    UAssetEditorSubsystem *AssetEditorSubsystem = GEditor->GetEditorSubsystem<UAssetEditorSubsystem>();
     if (!AssetEditorSubsystem)
     {
         return false;
     }
 
-    TArray<UObject*> EditedAssets = AssetEditorSubsystem->GetAllEditedAssets();
-    for (UObject* Asset : EditedAssets)
+    TArray<UObject *> EditedAssets = AssetEditorSubsystem->GetAllEditedAssets();
+    for (UObject *Asset : EditedAssets)
     {
-        IAssetEditorInstance* Editor = AssetEditorSubsystem->FindEditorForAsset(Asset, false);
+        IAssetEditorInstance *Editor = AssetEditorSubsystem->FindEditorForAsset(Asset, false);
         if (!Editor)
             continue;
 
@@ -77,10 +78,30 @@ bool UEditorHelper::CloseActiveEditAsset()
 
         if (Tab->IsForeground() && Window->IsActive())
         {
-			Editor->CloseWindow(EAssetEditorCloseReason::AssetEditorHostClosed);
-			return true;
+            Editor->CloseWindow(EAssetEditorCloseReason::AssetEditorHostClosed);
+            return true;
         }
     }
 
-	return false;
+    return false;
+}
+
+bool UEditorHelper::ShowActiveEditAssetReference()
+{
+    UObject *FocusedAsset = GetActiveEditAsset();
+    if (!FocusedAsset)
+    {
+        return false;
+    }
+
+    const UPackage *Package = FocusedAsset->GetOutermost();
+    if (!Package)
+    {
+        return false;
+    }
+
+    IAssetManagerEditorModule &AssetManagerEditorModule = IAssetManagerEditorModule::Get();
+    AssetManagerEditorModule.OpenReferenceViewerUI({FAssetIdentifier(Package->GetFName())});
+
+    return true;
 }

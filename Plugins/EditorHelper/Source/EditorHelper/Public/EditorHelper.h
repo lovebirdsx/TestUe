@@ -13,7 +13,11 @@ public:
     UFUNCTION(BlueprintCallable, Category = "EditorHelper")
     static UObject *GetActiveEditAsset();
 
-	// 关闭当前编辑的且激活的资源窗口
-	UFUNCTION(BlueprintCallable, Category = "EditorHelper")
-	static bool CloseActiveEditAsset();
+    // 关闭当前编辑的且激活的资源窗口
+    UFUNCTION(BlueprintCallable, Category = "EditorHelper")
+    static bool CloseActiveEditAsset();
+
+    // 显示当前编辑的且激活资源的引用关系
+    UFUNCTION(BlueprintCallable, Category = "EditorHelper")
+    static bool ShowActiveEditAssetReference();
 };

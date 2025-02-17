@@ -19,6 +19,7 @@ public class EditorHelper : ModuleRules
             "Slate",
             "LevelEditor",
             "ContentBrowser",
+            "AssetManagerEditor",
             "UnrealEd",
         });
     }

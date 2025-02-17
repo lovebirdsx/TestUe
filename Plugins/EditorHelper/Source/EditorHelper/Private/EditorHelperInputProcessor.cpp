@@ -44,6 +44,12 @@ bool FEditorHelperInputProcessor::HandleKeyDownEvent(FSlateApplication &SlateApp
             return true;
         }
     }
-
+    else if (InKeyEvent.GetKey() == EKeys::R && InKeyEvent.IsAltDown() && InKeyEvent.IsShiftDown())
+    {
+        if (UEditorHelper::ShowActiveEditAssetReference())
+        {
+            return true;
+        }
+    }
     return false;
 }
