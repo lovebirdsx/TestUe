@@ -37,5 +37,13 @@ bool FEditorHelperInputProcessor::HandleKeyDownEvent(FSlateApplication &SlateApp
             UE_LOG(LogTemp, Warning, TEXT("Failed to focus on selected asset"));
         }
     }
+    else if (InKeyEvent.GetKey() == EKeys::W && InKeyEvent.IsControlDown())
+    {
+        if (UEditorHelper::CloseActiveEditAsset())
+        {
+            return true;
+        }
+    }
+
     return false;
 }
