@@ -155,6 +155,7 @@ gulp.task('editor-test:watch', async () => {
 
     const watchDirGlobs = [
         path.join(workingDir, 'Source', 'TestUe', '**/*'),
+        path.join(workingDir, 'Source', 'TestUeEditor', '**/*'),
         path.join(workingDir, 'Plugins', '**/Source/**/*'),
     ];
 

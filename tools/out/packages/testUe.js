@@ -130,6 +130,7 @@ gulp.task('editor-test:watch', async () => {
     await runEditorTest();
     const watchDirGlobs = [
         path.join(workingDir, 'Source', 'TestUe', '**/*'),
+        path.join(workingDir, 'Source', 'TestUeEditor', '**/*'),
         path.join(workingDir, 'Plugins', '**/Source/**/*'),
     ];
     gulp.watch(watchDirGlobs, gulp.series('editor-test'));
