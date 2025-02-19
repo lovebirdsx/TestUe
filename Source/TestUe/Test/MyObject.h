@@ -2,6 +2,8 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Object.h"
+#include "DataRegistryId.h"
+#include "GameplayTagContainer.h"
 #include "MyObject.generated.h"
 
 // 标记为DefaultToInstanced，可以内联创建，譬如该对象作为属性，可以无需多创建一个资源
@@ -62,6 +64,9 @@ public:
     TSoftClassPtr<UMyObject> SoftRefClass;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
+    FDataRegistryId RefDataId;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
     TArray<UMyDataBase *> DataArray;
 
     TArray<int32> Numbers;
@@ -75,4 +80,34 @@ public:
 #if WITH_EDITOR
     virtual EDataValidationResult IsDataValid(class FDataValidationContext &Context) const;
 #endif // WITH_EDITOR
+};
+
+USTRUCT(BlueprintType)
+struct TESTUE_API FMyStruct
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
+    FString Name;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
+    int32 Value = 0;
+};
+
+USTRUCT(BlueprintType)
+struct TESTUE_API FMyTableRow : public FTableRowBase
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
+    FGameplayTag Tag;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
+    FString Name;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
+    int32 Value = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TestUe")
+    TSubclassOf<UMyObject> RefClass;
 };

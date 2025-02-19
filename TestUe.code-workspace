@@ -25,6 +25,8 @@
   ],
   "settings": {
     "C_Cpp.intelliSenseEngine": "Tag Parser",
-    "commentTranslate.targetLanguage": "zh-CN"
+    "C_Cpp.formatting": "disabled",
+    "commentTranslate.targetLanguage": "zh-CN",
+    "editor.formatOnPaste": false
   }
 }

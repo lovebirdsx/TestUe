@@ -4,14 +4,14 @@ using UnrealBuildTool;
 
 public class TestUeEditor : ModuleRules
 {
-	public TestUeEditor(ReadOnlyTargetRules Target) : base(Target)
-	{
-		PrivateDependencyModuleNames.AddRange(new string[] {"LiveCoding", "SessionFrontend"});
-		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-	
-		PublicDependencyModuleNames.AddRange(new string[] 
+    public TestUeEditor(ReadOnlyTargetRules Target) : base(Target)
+    {
+        PrivateDependencyModuleNames.AddRange(new string[] { "LiveCoding", "SessionFrontend" });
+        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+
+        PublicDependencyModuleNames.AddRange(new string[]
         {
-            "Core", 
+            "Core",
             "CoreUObject",
             "Engine",
             "InputCore",
@@ -19,11 +19,12 @@ public class TestUeEditor : ModuleRules
             "GameplayAbilities",
             "GameplayTags",
             "GameplayTasks",
+            "DataRegistry",
             "UnrealEd",
             "DeveloperSettings",
             "TestUe",
         });
-		
+
         // Uncomment if you are using Slate UI
         // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
 

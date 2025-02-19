@@ -4,13 +4,13 @@ using UnrealBuildTool;
 
 public class TestUe : ModuleRules
 {
-	public TestUe(ReadOnlyTargetRules Target) : base(Target)
-	{
-		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-	
-		PublicDependencyModuleNames.AddRange(new string[] 
+    public TestUe(ReadOnlyTargetRules Target) : base(Target)
+    {
+        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+
+        PublicDependencyModuleNames.AddRange(new string[]
         {
-            "Core", 
+            "Core",
             "CoreUObject",
             "Engine",
             "InputCore",
@@ -18,6 +18,7 @@ public class TestUe : ModuleRules
             "GameplayAbilities",
             "GameplayTags",
             "GameplayTasks",
+            "DataRegistry",
         });
 
         // Uncomment if you are using Slate UI
