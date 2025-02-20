@@ -19,5 +19,15 @@
       "Type": "Editor",
       "LoadingPhase": "Default"
     }
+  ],
+  "Plugins": [
+    {
+      "Name": "AssetManagerEditor",
+      "Enabled": true
+    },
+    {
+      "Name": "GameplayTagsEditor",
+      "Enabled": true
+    }
   ]
 }

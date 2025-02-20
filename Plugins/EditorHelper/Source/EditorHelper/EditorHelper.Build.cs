@@ -20,6 +20,7 @@ public class EditorHelper : ModuleRules
             "LevelEditor",
             "ContentBrowser",
             "AssetManagerEditor",
+            "GameplayTagsEditor",
             "UnrealEd",
         });
     }

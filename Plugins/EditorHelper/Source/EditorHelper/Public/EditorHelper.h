@@ -20,4 +20,8 @@ public:
     // 显示当前编辑的且激活资源的引用关系
     UFUNCTION(BlueprintCallable, Category = "EditorHelper")
     static bool ShowActiveEditAssetReference();
+
+    // 打开Gameplay Tag Manager
+    UFUNCTION(BlueprintCallable, Category = "EditorHelper")
+    static bool OpenGameplayTagManager();
 };

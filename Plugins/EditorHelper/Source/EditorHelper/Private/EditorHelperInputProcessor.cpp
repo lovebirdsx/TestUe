@@ -26,7 +26,12 @@ void FEditorHelperInputProcessor::Tick(const float DeltaTime, FSlateApplication 
 
 bool FEditorHelperInputProcessor::HandleKeyDownEvent(FSlateApplication &SlateApp, const FKeyEvent &InKeyEvent)
 {
-    if (InKeyEvent.GetKey() == EKeys::B && InKeyEvent.IsControlDown())
+    FKey Key = InKeyEvent.GetKey();
+    bool bControlDown = InKeyEvent.IsControlDown();
+    bool bShiftDown = InKeyEvent.IsShiftDown();
+    bool bAltDown = InKeyEvent.IsAltDown();
+    
+    if (Key == EKeys::B && bControlDown && !bShiftDown && !bAltDown)
     {
         if (TryFocusOnActiveEditAsset())
         {
@@ -37,16 +42,23 @@ bool FEditorHelperInputProcessor::HandleKeyDownEvent(FSlateApplication &SlateApp
             UE_LOG(LogTemp, Warning, TEXT("Failed to focus on selected asset"));
         }
     }
-    else if (InKeyEvent.GetKey() == EKeys::W && InKeyEvent.IsControlDown())
+    else if (Key == EKeys::W && bControlDown && !bShiftDown && !bAltDown)
     {
         if (UEditorHelper::CloseActiveEditAsset())
         {
             return true;
         }
     }
-    else if (InKeyEvent.GetKey() == EKeys::R && InKeyEvent.IsAltDown() && InKeyEvent.IsShiftDown())
+    else if (Key == EKeys::R && bAltDown && bShiftDown && !bControlDown)
     {
         if (UEditorHelper::ShowActiveEditAssetReference())
+        {
+            return true;
+        }
+    }
+    else if (Key == EKeys::G && bControlDown && bAltDown && !bShiftDown)
+    {
+        if (UEditorHelper::OpenGameplayTagManager())
         {
             return true;
         }

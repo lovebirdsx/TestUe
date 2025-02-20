@@ -1,5 +1,6 @@
 #include "EditorHelper.h"
 #include "AssetManagerEditorModule.h"
+#include "SGameplayTagPicker.h"
 
 UObject *UEditorHelper::GetActiveEditAsset()
 {
@@ -103,5 +104,13 @@ bool UEditorHelper::ShowActiveEditAssetReference()
     IAssetManagerEditorModule &AssetManagerEditorModule = IAssetManagerEditorModule::Get();
     AssetManagerEditorModule.OpenReferenceViewerUI({FAssetIdentifier(Package->GetFName())});
 
+    return true;
+}
+
+bool UEditorHelper::OpenGameplayTagManager()
+{
+    FGameplayTagManagerWindowArgs Args;
+    Args.bRestrictedTags = false;
+    UE::GameplayTags::Editor::OpenGameplayTagManager(Args);
     return true;
 }
