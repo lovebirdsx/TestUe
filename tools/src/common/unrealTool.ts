@@ -6,8 +6,10 @@ import { exec } from "./exec";
 import { red } from "./util";
 
 const INSTALL_PATHS = [
+    "D:/UE_5.5_Source",
     "F:/UE_5.5_Source",
     "E:/UE_5.5_Source",
+    "D:/UE_5.5",
     "E:/UE_5.5",
     "F:/UE_5.5",
 ]
