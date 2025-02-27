@@ -23,9 +23,13 @@
 			"LoadingPhase": "Default"
 		}
 	],
-	"Plugins": [		
+	"Plugins": [
 		{
 			"Name": "GameplayAbilities",
+			"Enabled": true
+		},
+		{
+			"Name": "CQTest",
 			"Enabled": true
 		}
 	]

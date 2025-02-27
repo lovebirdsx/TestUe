@@ -8,7 +8,7 @@ public class MyTest : ModuleRules
 
         PrivateDependencyModuleNames.Add("Core");
         PrivateDependencyModuleNames.Add("Projects");
-        PrivateDependencyModuleNames.Add("CoreUObject");
+        PrivateDependencyModuleNames.Add("CoreUObject");        
 
         DefaultBuildSettings = BuildSettingsVersion.V5;
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;

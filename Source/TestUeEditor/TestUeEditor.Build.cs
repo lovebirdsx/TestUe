@@ -22,6 +22,7 @@ public class TestUeEditor : ModuleRules
             "DataRegistry",
             "UnrealEd",
             "DeveloperSettings",
+            "CQTest",
             "TestUe",
         });
 
