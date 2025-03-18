@@ -49,3 +49,4 @@ node_modules/
 # Ignore blender files
 *.blend1
 *.blend2
+*.fbx
